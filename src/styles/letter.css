@@ -1,0 +1,932 @@
+/* =========================================================
+   BIRTHDAY LETTER
+========================================================= */
+
+.letter-page {
+  min-height: 100vh;
+
+  position: relative;
+
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 35%,
+      rgba(185,145,85,.12),
+      transparent 45%
+    ),
+    linear-gradient(
+      180deg,
+      #17120b,
+      #0d0905 65%,
+      #050302
+    );
+
+  color: #e6d4b1;
+
+  font-family:
+    "Courier New",
+    monospace;
+}
+
+
+/* =========================================================
+   ATMOSPHERE
+========================================================= */
+
+.letter-glow {
+  position: fixed;
+
+  width: 700px;
+  height: 700px;
+
+  left: 50%;
+  top: 40%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(220,170,95,.08),
+      transparent 68%
+    );
+
+  filter:
+    blur(30px);
+}
+
+.letter-grain {
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 100;
+
+  opacity: .055;
+
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.letter-vignette {
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 90;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 42%,
+      rgba(0,0,0,.8)
+    );
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.letter-header {
+  position: relative;
+
+  z-index: 10;
+
+  width: min(1100px, 92%);
+
+  margin: auto;
+
+  padding: 15px 0;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  border-bottom:
+    1px solid
+    rgba(215,180,115,.15);
+}
+
+.letter-code strong {
+  display: block;
+
+  font-size: 9px;
+
+  letter-spacing: 3px;
+
+  color:
+    #c9ad78;
+}
+
+.letter-code span {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 6px;
+
+  letter-spacing: 2px;
+
+  color:
+    rgba(225,205,165,.35);
+}
+
+.letter-header-title {
+  font-size: 9px;
+
+  letter-spacing: 4px;
+
+  color:
+    #bfa16a;
+}
+
+.letter-seal {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(200,160,90,.4);
+
+  color:
+    #c8a568;
+
+  font-size: 12px;
+
+  box-shadow:
+    0 0 15px
+    rgba(200,160,90,.08);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.letter-main {
+  position: relative;
+
+  z-index: 5;
+
+  width: min(850px, 92%);
+
+  margin: auto;
+
+  text-align: center;
+
+  padding-bottom: 50px;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.letter-intro {
+  padding-top: 25px;
+}
+
+.letter-intro > span {
+  font-size: 7px;
+
+  letter-spacing: 4px;
+
+  color:
+    rgba(225,205,165,.35);
+}
+
+.letter-intro h1 {
+  margin:
+    7px 0 3px;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size:
+    clamp(34px, 5vw, 50px);
+
+  letter-spacing: 4px;
+
+  color:
+    #e0c99a;
+
+  text-shadow:
+    0 2px 0 #5d4729,
+    0 0 22px
+    rgba(215,170,90,.15);
+}
+
+.letter-intro p {
+  margin: 0;
+
+  font-size: 8px;
+
+  color:
+    rgba(225,205,165,.4);
+}
+
+
+/* =========================================================
+   ENVELOPE AREA
+========================================================= */
+
+.envelope-area {
+  margin-top: 40px;
+}
+
+
+/* =========================================================
+   ENVELOPE
+========================================================= */
+
+.envelope {
+  position: relative;
+
+  width: 430px;
+  height: 275px;
+
+  max-width: 90vw;
+
+  border: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  perspective: 1000px;
+}
+
+.envelope-shadow {
+  position: absolute;
+
+  left: 50%;
+  bottom: -25px;
+
+  width: 360px;
+  height: 35px;
+
+  transform:
+    translateX(-50%);
+
+  border-radius: 50%;
+
+  background:
+    rgba(0,0,0,.7);
+
+  filter:
+    blur(12px);
+}
+
+.envelope-back {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      145deg,
+      #6b4f2e,
+      #352513
+    );
+
+  border:
+    1px solid
+    #987346;
+
+  box-shadow:
+    0 25px 45px
+    rgba(0,0,0,.65);
+}
+
+
+/* =========================================================
+   LETTER PAPER INSIDE
+========================================================= */
+
+.envelope-paper {
+  position: absolute;
+
+  left: 50%;
+  top: 20px;
+
+  width: 78%;
+  height: 88%;
+
+  transform:
+    translateX(-50%)
+    translateY(10px);
+
+  background:
+    #e6d1a5;
+
+  color:
+    #4a3520;
+
+  box-shadow:
+    0 5px 20px
+    rgba(0,0,0,.35);
+
+  transition:
+    .45s;
+}
+
+.envelope:hover .envelope-paper {
+  transform:
+    translateX(-50%)
+    translateY(-20px);
+}
+
+.paper-lines {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 23px,
+      rgba(110,80,40,.12) 24px
+    );
+}
+
+.paper-preview {
+  position: relative;
+
+  padding: 30px 20px;
+
+  text-align: left;
+
+  font-family:
+    "Segoe Print",
+    "Comic Sans MS",
+    cursive;
+
+  font-size: 17px;
+}
+
+
+/* =========================================================
+   ENVELOPE FLAP
+========================================================= */
+
+.envelope-flap {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 0;
+  height: 0;
+
+  border-left:
+    215px solid transparent;
+
+  border-right:
+    215px solid transparent;
+
+  border-top:
+    145px solid #765732;
+
+  z-index: 5;
+
+  filter:
+    drop-shadow(
+      0 2px 2px
+      rgba(0,0,0,.25)
+    );
+}
+
+
+/* =========================================================
+   FRONT
+========================================================= */
+
+.envelope-front {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 52%;
+
+  z-index: 6;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(120,88,50,.95),
+      rgba(53,37,19,.98)
+    );
+
+  clip-path:
+    polygon(
+      0 0,
+      50% 58%,
+      100% 0,
+      100% 100%,
+      0 100%
+    );
+}
+
+
+/* =========================================================
+   SEAL
+========================================================= */
+
+.letter-seal-button {
+  position: absolute;
+
+  left: 50%;
+  top: 53%;
+
+  width: 54px;
+  height: 54px;
+
+  transform:
+    translate(-50%, -50%);
+
+  z-index: 10;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #b77b58,
+      #6b3829
+    );
+
+  border:
+    3px solid
+    #4a281d;
+
+  color:
+    #f0cbb0;
+
+  font-size: 20px;
+
+  box-shadow:
+    0 5px 10px
+    rgba(0,0,0,.45),
+
+    0 0 18px
+    rgba(170,90,55,.15);
+}
+
+.envelope:hover .letter-seal-button {
+  transform:
+    translate(-50%, -50%)
+    scale(1.08);
+}
+
+
+/* =========================================================
+   HINT
+========================================================= */
+
+.envelope-hint {
+  margin-top: 28px;
+
+  font-size: 7px;
+
+  letter-spacing: 3px;
+
+  color:
+    rgba(225,205,165,.35);
+}
+
+
+/* =========================================================
+   LETTER SHEET
+========================================================= */
+
+.letter-sheet {
+  position: relative;
+
+  width: min(680px, 94%);
+
+  margin:
+    30px auto 0;
+
+  padding:
+    42px 55px 30px;
+
+  text-align: left;
+
+  color:
+    #493622;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ead9b5,
+      #dfc89d
+    );
+
+  box-shadow:
+    0 30px 80px
+    rgba(0,0,0,.75),
+
+    inset 0 0 45px
+    rgba(100,65,30,.08);
+
+  transform:
+    rotate(-.5deg);
+
+  animation:
+    letterAppear .7s ease forwards;
+}
+
+@keyframes letterAppear {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(30px)
+      rotate(-2deg);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      rotate(-.5deg);
+  }
+}
+
+
+/* =========================================================
+   PAPER TEXTURE
+========================================================= */
+
+.letter-sheet::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: .15;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 4px,
+      rgba(80,50,20,.025) 5px
+    );
+}
+
+
+/* =========================================================
+   TAPE
+========================================================= */
+
+.paper-tape {
+  position: absolute;
+
+  width: 90px;
+  height: 25px;
+
+  top: -8px;
+
+  background:
+    rgba(210,190,140,.55);
+
+  box-shadow:
+    0 2px 5px
+    rgba(0,0,0,.1);
+}
+
+.tape-left {
+  left: 70px;
+
+  transform:
+    rotate(-8deg);
+}
+
+.tape-right {
+  right: 70px;
+
+  transform:
+    rotate(8deg);
+}
+
+
+/* =========================================================
+   SHEET HEADER
+========================================================= */
+
+.letter-sheet-top {
+  display: flex;
+
+  justify-content: space-between;
+
+  padding-bottom: 12px;
+
+  border-bottom:
+    1px solid
+    rgba(80,55,25,.22);
+
+  font-size: 6px;
+
+  letter-spacing: 2px;
+
+  color:
+    rgba(75,52,27,.55);
+}
+
+
+/* =========================================================
+   HANDWRITTEN LETTER
+========================================================= */
+
+.handwritten-letter {
+  position: relative;
+
+  padding-top: 22px;
+
+  font-family:
+    "Segoe Print",
+    "Bradley Hand",
+    "Comic Sans MS",
+    cursive;
+
+  font-size: 13px;
+
+  line-height: 1.9;
+}
+
+.handwritten-letter p {
+  margin:
+    0 0 16px;
+}
+
+.letter-dear {
+  font-size: 19px;
+
+  margin-bottom: 18px !important;
+}
+
+.letter-love {
+  margin-top: 20px !important;
+
+  font-size: 17px;
+
+  color:
+    #703c32;
+}
+
+.letter-signature {
+  margin-top: 22px !important;
+
+  text-align: right;
+
+  font-size: 15px;
+}
+
+.letter-signature span {
+  color:
+    #8c4437;
+
+  font-size: 25px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.letter-sheet-footer {
+  margin-top: 20px;
+
+  padding-top: 10px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  border-top:
+    1px solid
+    rgba(80,55,25,.18);
+
+  font-size: 5px;
+
+  letter-spacing: 2px;
+
+  color:
+    rgba(75,52,27,.4);
+}
+
+
+/* =========================================================
+   CONTINUE
+========================================================= */
+
+.letter-continue {
+  margin-top: 25px;
+
+  padding:
+    12px 23px;
+
+  border:
+    1px solid
+    rgba(200,165,100,.45);
+
+  background:
+    #100c07;
+
+  color:
+    #d8bb82;
+
+  font-family: inherit;
+
+  font-size: 7px;
+
+  letter-spacing: 3px;
+
+  cursor: pointer;
+
+  transition:
+    .25s;
+}
+
+.letter-continue:hover {
+  background:
+    #d2b67c;
+
+  color:
+    #100c07;
+
+  box-shadow:
+    0 0 25px
+    rgba(210,175,100,.2);
+}
+
+.letter-continue b {
+  margin-left: 15px;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   CORNERS
+========================================================= */
+
+.letter-corner {
+  position: fixed;
+
+  bottom: 12px;
+
+  z-index: 10;
+
+  font-size: 6px;
+
+  line-height: 1.8;
+
+  color:
+    rgba(225,205,165,.2);
+}
+
+.letter-corner-left {
+  left: 18px;
+}
+
+.letter-corner-right {
+  right: 18px;
+
+  text-align: right;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .letter-header-title {
+    font-size: 7px;
+
+    letter-spacing: 2px;
+  }
+
+  .letter-seal {
+    width: 25px;
+    height: 25px;
+  }
+
+  .envelope {
+    width: 350px;
+    height: 225px;
+  }
+
+  .envelope-flap {
+    border-left-width:
+      175px;
+
+    border-right-width:
+      175px;
+
+    border-top-width:
+      120px;
+  }
+
+  .letter-sheet {
+    width: 92%;
+
+    padding:
+      35px 25px 25px;
+  }
+
+  .handwritten-letter {
+    font-size: 11px;
+
+    line-height: 1.8;
+  }
+
+  .letter-dear {
+    font-size: 16px;
+  }
+
+  .letter-love {
+    font-size: 14px;
+  }
+
+  .letter-corner {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   LAPTOP HEIGHT
+========================================================= */
+
+@media (min-width: 701px) and (max-height: 800px) {
+
+  .letter-intro {
+    padding-top: 12px;
+  }
+
+  .letter-intro h1 {
+    font-size: 40px;
+  }
+
+  .envelope-area {
+    margin-top: 20px;
+  }
+
+  .envelope {
+    width: 360px;
+    height: 230px;
+  }
+
+  .letter-sheet {
+    margin-top: 15px;
+
+    padding:
+      30px 45px 20px;
+  }
+
+  .handwritten-letter {
+    font-size: 11px;
+
+    line-height: 1.7;
+  }
+
+  .handwritten-letter p {
+    margin-bottom: 10px;
+  }
+}

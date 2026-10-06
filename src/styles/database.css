@@ -1,0 +1,5363 @@
+/* =========================================================
+   PUGLU DATABASE
+   PERSONALITY TRANSFORMATION SYSTEM
+   CLEAN FINAL VERSION
+========================================================= */
+
+.database-page {
+  --mode-color: #9cff63;
+
+  min-height: 100vh;
+
+  position: relative;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  padding: 0 30px 80px;
+
+  color: var(--mode-color);
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(80, 150, 65, 0.13),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 50% 80%,
+      rgba(30, 80, 35, 0.08),
+      transparent 45%
+    ),
+    #020604;
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =========================================================
+   BACKGROUND GRID
+========================================================= */
+
+.database-grid {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 0;
+
+  pointer-events: none;
+
+  opacity: 0.18;
+
+  background-image:
+    linear-gradient(
+      rgba(100, 255, 70, 0.1) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(100, 255, 70, 0.1) 1px,
+      transparent 1px
+    );
+
+  background-size: 45px 45px;
+
+  transform:
+    perspective(500px)
+    rotateX(55deg)
+    scale(1.7);
+
+  transform-origin:
+    center bottom;
+}
+
+/* =========================================================
+   SCANLINES
+========================================================= */
+
+.database-scanlines {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 80;
+
+  pointer-events: none;
+
+  opacity: 0.1;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 3px,
+      rgba(100, 255, 70, 0.12) 4px
+    );
+}
+
+/* =========================================================
+   NOISE
+========================================================= */
+
+.database-noise {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 81;
+
+  pointer-events: none;
+
+  opacity: 0.035;
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.04),
+      transparent 1px,
+      transparent 3px
+    );
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.database-header {
+  position: relative;
+
+  z-index: 10;
+
+  width: 100%;
+  max-width: 1250px;
+
+  height: 52px;
+
+  border-bottom:
+    1px solid
+    rgba(120, 255, 80, 0.22);
+
+  display: grid;
+
+  grid-template-columns:
+    1fr auto 1fr;
+
+  align-items: center;
+
+  font-size: 11px;
+
+  letter-spacing: 3px;
+}
+
+.database-id {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.database-id strong {
+  font-size: 12px;
+
+  color: var(--mode-color);
+
+  text-shadow:
+    0 0 8px var(--mode-color);
+}
+
+.database-id span {
+  font-size: 7px;
+
+  letter-spacing: 2px;
+
+  opacity: 0.4;
+}
+
+.database-name {
+  font-size: 12px;
+
+  font-weight: bold;
+
+  letter-spacing: 6px;
+
+  text-shadow:
+    0 0 8px var(--mode-color);
+}
+
+.database-status {
+  justify-self: end;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  font-size: 9px;
+
+  opacity: 0.7;
+}
+
+.database-status span {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background:
+    var(--mode-color);
+
+  box-shadow:
+    0 0 10px var(--mode-color);
+
+  animation:
+    statusBlink 1.5s infinite;
+}
+
+@keyframes statusBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.database-heading {
+  position: relative;
+
+  z-index: 10;
+
+  text-align: center;
+
+  margin-top: 28px;
+}
+
+.database-heading p {
+  margin: 0 0 10px;
+
+  font-size: 10px;
+
+  letter-spacing: 6px;
+
+  opacity: 0.5;
+}
+
+.database-heading h1 {
+  margin: 0;
+
+  font-size: 30px;
+
+  letter-spacing: 6px;
+
+  color: #f0b8d0;
+
+  text-shadow:
+    0 0 8px #ff9fc4,
+    0 0 22px rgba(255, 140, 190, 0.35);
+}
+
+/* =========================================================
+   MAIN WATCH AREA
+========================================================= */
+
+.database-watch-area {
+  position: relative;
+
+  z-index: 10;
+
+  width: min(1050px, 96vw);
+
+  height: 650px;
+
+  margin-top: 18px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: flex-end;
+}
+
+/* =========================================================
+   HOLOGRAM AREA
+========================================================= */
+
+.hologram-area {
+  position: absolute;
+
+  left: 50%;
+  top: 0;
+
+  width: 470px;
+  height: 440px;
+
+  transform:
+    translateX(-50%);
+
+  z-index: 30;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   HOLOGRAM FRAME
+========================================================= */
+
+.hologram-frame {
+  position: absolute;
+
+  left: 50%;
+  top: 0;
+
+  width: 390px;
+  height: 360px;
+
+  transform:
+    translateX(-50%);
+
+  border:
+    2px solid
+    var(--mode-color);
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(90, 145, 75, 0.18),
+      rgba(0, 10, 5, 0.55) 62%,
+      rgba(0, 0, 0, 0.18)
+    );
+
+  box-shadow:
+    0 0 30px
+      rgba(100, 255, 100, 0.12),
+
+    inset 0 0 50px
+      rgba(100, 255, 100, 0.08);
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   CORNERS
+========================================================= */
+
+.scanner-corner {
+  position: absolute;
+
+  width: 32px;
+  height: 32px;
+
+  z-index: 40;
+
+  border-color:
+    var(--mode-color);
+
+  box-shadow:
+    0 0 10px var(--mode-color);
+}
+
+.scanner-top-left {
+  left: -2px;
+  top: -2px;
+
+  border-left: 4px solid;
+  border-top: 4px solid;
+}
+
+.scanner-top-right {
+  right: -2px;
+  top: -2px;
+
+  border-right: 4px solid;
+  border-top: 4px solid;
+}
+
+.scanner-bottom-left {
+  left: -2px;
+  bottom: -2px;
+
+  border-left: 4px solid;
+  border-bottom: 4px solid;
+}
+
+.scanner-bottom-right {
+  right: -2px;
+  bottom: -2px;
+
+  border-right: 4px solid;
+  border-bottom: 4px solid;
+}
+
+/* =========================================================
+   HOLOGRAM TITLE
+========================================================= */
+
+.hologram-label {
+  position: absolute;
+
+  top: 18px;
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  white-space: nowrap;
+
+  z-index: 35;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  letter-spacing: 4px;
+
+  color:
+    var(--mode-color);
+
+  text-shadow:
+    0 0 8px var(--mode-color),
+    0 0 18px var(--mode-color);
+}
+
+.hologram-number {
+  position: absolute;
+
+  top: 48px;
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  white-space: nowrap;
+
+  z-index: 35;
+
+  font-size: 9px;
+
+  letter-spacing: 4px;
+
+  color:
+    var(--mode-color);
+
+  opacity: 0.65;
+}
+
+/* =========================================================
+   ACTUAL STICKER
+========================================================= */
+
+.hologram-sticker {
+  position: absolute;
+
+  left: 50%;
+  top: 58%;
+
+  width: 285px;
+  height: 285px;
+
+  transform:
+    translate(-50%, -50%);
+
+  object-fit: contain;
+
+  object-position: center;
+
+  display: block;
+
+  visibility: visible;
+
+  opacity: 1;
+
+  z-index: 12;
+
+  filter:
+    brightness(1.08)
+    contrast(1.08)
+    drop-shadow(
+      0 0 7px
+      var(--mode-color)
+    )
+    drop-shadow(
+      0 0 22px
+      var(--mode-color)
+    );
+
+  animation:
+    hologramFloat 3s ease-in-out infinite;
+}
+
+@keyframes hologramFloat {
+  0%,
+  100% {
+    transform:
+      translate(-50%, -50%)
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translate(-50%, -50%)
+      translateY(-11px);
+  }
+}
+
+/* =========================================================
+   HOLOGRAM GLOW
+========================================================= */
+
+.hologram-glow {
+  position: absolute;
+
+  left: 50%;
+  top: 58%;
+
+  width: 270px;
+  height: 280px;
+
+  transform:
+    translate(-50%, -50%);
+
+  background:
+    radial-gradient(
+      ellipse,
+      var(--mode-color),
+      transparent 70%
+    );
+
+  opacity: 0.13;
+
+  filter:
+    blur(30px);
+
+  z-index: 3;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   HOLOGRAM SCAN LINE
+========================================================= */
+
+.hologram-scan-line {
+  position: absolute;
+
+  left: 15px;
+  right: 15px;
+
+  top: 65px;
+
+  height: 2px;
+
+  z-index: 35;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--mode-color),
+      transparent
+    );
+
+  box-shadow:
+    0 0 12px var(--mode-color);
+
+  opacity: 0.8;
+
+  animation:
+    hologramScan 2.4s linear infinite;
+}
+
+@keyframes hologramScan {
+  0% {
+    transform:
+      translateY(0);
+
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.8;
+  }
+
+  90% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform:
+      translateY(265px);
+
+    opacity: 0;
+  }
+}
+
+/* =========================================================
+   HOLOGRAM STATUS
+========================================================= */
+
+.hologram-status {
+  position: absolute;
+
+  left: 20px;
+  bottom: 16px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+
+  z-index: 35;
+
+  font-size: 8px;
+
+  letter-spacing: 3px;
+
+  opacity: 0.65;
+}
+
+.hologram-status strong {
+  color:
+    var(--mode-color);
+
+  text-shadow:
+    0 0 8px var(--mode-color);
+
+  font-size: 10px;
+}
+
+/* =========================================================
+   HOLOGRAM BEAM
+========================================================= */
+
+.hologram-beam {
+  position: absolute;
+
+  left: 50%;
+
+  bottom: 90px;
+
+  width: 230px;
+  height: 220px;
+
+  transform:
+    translateX(-50%);
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(130, 255, 100, 0.24),
+      transparent
+    );
+
+  clip-path:
+    polygon(
+      38% 100%,
+      62% 100%,
+      88% 0%,
+      12% 0%
+    );
+
+  filter:
+    blur(5px);
+
+  opacity: 0.5;
+
+  z-index: 1;
+
+  animation:
+    beamPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes beamPulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* =========================================================
+   HOLOGRAM BASE
+========================================================= */
+
+.hologram-base {
+  position: absolute;
+
+  left: 50%;
+  bottom: 67px;
+
+  width: 260px;
+  height: 60px;
+
+  transform:
+    translateX(-50%)
+    perspective(450px)
+    rotateX(65deg);
+
+  border-radius: 50%;
+
+  border:
+    2px solid
+    var(--mode-color);
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(120, 255, 100, 0.2),
+      transparent 70%
+    );
+
+  box-shadow:
+    0 0 20px var(--mode-color),
+    inset 0 0 20px var(--mode-color);
+
+  z-index: 15;
+}
+
+.hologram-base span {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 155px;
+  height: 3px;
+
+  transform:
+    translate(-50%, -50%);
+
+  background:
+    var(--mode-color);
+
+  box-shadow:
+    0 0 12px var(--mode-color);
+}
+
+/* =========================================================
+   3D WATCH AREA
+========================================================= */
+
+.watch-side-3d {
+  position: absolute;
+
+  left: 50%;
+  bottom: 8px;
+
+  width: 720px;
+  height: 210px;
+
+  transform:
+    translateX(-50%)
+    perspective(1200px)
+    rotateX(20deg)
+    rotateY(-10deg)
+    rotateZ(-1deg);
+
+  transform-style:
+    preserve-3d;
+
+  z-index: 45;
+}
+
+/* =========================================================
+   WATCH SHADOW
+========================================================= */
+
+.watch-shadow {
+  position: absolute;
+
+  left: 50%;
+  bottom: -42px;
+
+  width: 540px;
+  height: 65px;
+
+  transform:
+    translateX(-50%)
+    translateZ(-90px);
+
+  border-radius: 50%;
+
+  background:
+    #000;
+
+  filter:
+    blur(22px);
+
+  opacity: 0.85;
+}
+
+/* =========================================================
+   WATCH BACK / THICKNESS
+========================================================= */
+
+.watch-back {
+  position: absolute;
+
+  left: 50%;
+  bottom: 15px;
+
+  width: 545px;
+  height: 145px;
+
+  transform:
+    translateX(-50%)
+    translateZ(-45px);
+
+  border-radius:
+    78px
+    78px
+    48px
+    48px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #172619,
+      #050805 55%,
+      #101b0f
+    );
+
+  border:
+    3px solid
+    #344b30;
+
+  box-shadow:
+    0 18px 0 #020302,
+    0 28px 40px
+      rgba(0, 0, 0, 0.85);
+}
+
+/* =========================================================
+   MAIN WATCH BODY
+========================================================= */
+
+.watch-shell {
+  position: absolute;
+
+  left: 50%;
+  bottom: 32px;
+
+  width: 565px;
+  height: 150px;
+
+  transform:
+    translateX(-50%)
+    translateZ(25px);
+
+  transform-style:
+    preserve-3d;
+
+  border-radius:
+    82px
+    82px
+    48px
+    48px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #8ca578 0%,
+      #607651 7%,
+      #30462b 20%,
+      #172718 38%,
+      #071008 62%,
+      #1d3219 84%,
+      #081008 100%
+    );
+
+  border:
+    4px solid
+    #718966;
+
+  box-shadow:
+
+    inset 0 7px 10px
+      rgba(240, 255, 220, 0.3),
+
+    inset 0 -18px 25px
+      rgba(0, 0, 0, 0.9),
+
+    0 12px 0
+      #020402,
+
+    0 25px 40px
+      rgba(0, 0, 0, 0.85);
+}
+
+/* =========================================================
+   TOP BEVEL
+========================================================= */
+
+.watch-top-bevel {
+  position: absolute;
+
+  left: 30px;
+  right: 30px;
+
+  top: 4px;
+
+  height: 32px;
+
+  border-radius: 50%;
+
+  border-top:
+    4px solid
+    rgba(235, 255, 220, 0.55);
+
+  border-bottom:
+    1px solid
+    rgba(0, 0, 0, 0.65);
+
+  transform:
+    translateZ(14px);
+}
+
+/* =========================================================
+   WATCH FRONT SCREEN
+========================================================= */
+
+.watch-surface {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 335px;
+  height: 98px;
+
+  transform:
+    translate(-50%, -50%)
+    translateZ(28px);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      #355a31,
+      #102011 60%,
+      #020502 100%
+    );
+
+  border:
+    3px solid
+    rgba(180, 210, 160, 0.6);
+
+  box-shadow:
+    inset 0 0 35px #000,
+
+    inset 0 0 15px
+      var(--mode-color),
+
+    0 0 20px
+      rgba(150, 255, 120, 0.25);
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   WATCH ICON
+========================================================= */
+
+.watch-icon {
+  position: absolute;
+
+  left: 50%;
+  top: 40%;
+
+  transform:
+    translate(-50%, -50%);
+
+  color:
+    var(--mode-color);
+
+  font-size: 40px;
+
+  text-shadow:
+    0 0 10px var(--mode-color),
+    0 0 25px var(--mode-color);
+}
+
+/* =========================================================
+   WATCH SUBJECT TEXT
+========================================================= */
+
+.watch-subject {
+  position: absolute;
+
+  left: 50%;
+  bottom: 9px;
+
+  transform:
+    translateX(-50%);
+
+  display: flex;
+
+  gap: 11px;
+
+  white-space: nowrap;
+
+  font-size: 9px;
+
+  letter-spacing: 3px;
+
+  color:
+    rgba(220, 245, 210, 0.7);
+}
+
+.watch-subject strong {
+  color:
+    var(--mode-color);
+
+  text-shadow:
+    0 0 9px var(--mode-color);
+}
+
+/* =========================================================
+   WATCH SCAN LIGHT
+========================================================= */
+
+.watch-scan-light {
+  position: absolute;
+
+  left: 25px;
+  right: 25px;
+
+  top: 50%;
+
+  height: 2px;
+
+  transform:
+    translateY(-50%);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--mode-color),
+      transparent
+    );
+
+  box-shadow:
+    0 0 12px var(--mode-color);
+
+  opacity: 0.6;
+}
+
+/* =========================================================
+   LOWER BEVEL
+========================================================= */
+
+.watch-bottom-bevel {
+  position: absolute;
+
+  left: 32px;
+  right: 32px;
+
+  bottom: 5px;
+
+  height: 20px;
+
+  border-radius: 50%;
+
+  border-bottom:
+    3px solid
+    rgba(170, 200, 150, 0.4);
+
+  transform:
+    translateZ(11px);
+}
+
+/* =========================================================
+   OUTER RIM
+========================================================= */
+
+.watch-rim {
+  position: absolute;
+
+  inset: -13px;
+
+  border-radius:
+    92px
+    92px
+    58px
+    58px;
+
+  border:
+    3px solid
+    rgba(160, 195, 145, 0.45);
+
+  box-shadow:
+    0 0 20px
+      rgba(130, 255, 100, 0.14);
+
+  transform:
+    translateZ(-3px);
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   WATCH SIDE BUTTONS
+========================================================= */
+
+.watch-side-button {
+  position: absolute;
+
+  right: -23px;
+
+  width: 27px;
+
+  border-radius: 7px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #182719,
+      #9aae8a,
+      #30452d
+    );
+
+  border:
+    2px solid
+    rgba(210, 235, 190, 0.65);
+
+  box-shadow:
+    5px 6px 9px
+      rgba(0, 0, 0, 0.8);
+
+  transform:
+    translateZ(10px);
+
+  z-index: 30;
+}
+
+.button-one {
+  top: 17px;
+
+  height: 32px;
+}
+
+.button-two {
+  top: 58px;
+
+  height: 42px;
+}
+
+.button-three {
+  top: 108px;
+
+  height: 21px;
+}
+
+/* =========================================================
+   OUTSIDE NAVIGATION BUTTONS
+========================================================= */
+
+.watch-control-3d {
+  position: absolute;
+
+  top: 50%;
+
+  width: 68px;
+  height: 68px;
+
+  transform:
+    translateY(-50%);
+
+  border:
+    2px solid
+    rgba(160, 205, 140, 0.6);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(40, 80, 35, 0.6),
+      rgba(2, 7, 3, 0.98)
+    );
+
+  color:
+    var(--mode-color);
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  font-size: 42px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  z-index: 100;
+
+  box-shadow:
+    0 0 15px
+      rgba(100, 255, 80, 0.15),
+
+    inset 0 0 15px
+      rgba(100, 255, 80, 0.08);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* FAR LEFT */
+.watch-left {
+  left: -125px;
+}
+
+/* FAR RIGHT */
+.watch-right {
+  right: -125px;
+}
+
+.watch-control-3d:hover {
+  transform:
+    translateY(-50%)
+    scale(1.12);
+
+  box-shadow:
+    0 0 28px
+      var(--mode-color),
+
+    inset 0 0 18px
+      rgba(100, 255, 80, 0.15);
+}
+
+.watch-control-3d:active {
+  transform:
+    translateY(-50%)
+    scale(0.96);
+}
+
+/* =========================================================
+   TRANSFORMATION EFFECT
+========================================================= */
+
+.database-page.is-transforming
+.watch-shell {
+  animation:
+    watchPulse
+    0.6s
+    ease;
+}
+
+@keyframes watchPulse {
+
+  0% {
+    filter:
+      brightness(1);
+  }
+
+  45% {
+    filter:
+      brightness(1.9)
+      drop-shadow(
+        0 0 28px
+        var(--mode-color)
+      );
+  }
+
+  100% {
+    filter:
+      brightness(1);
+  }
+}
+
+.database-page.is-transforming
+.hologram-sticker {
+  animation:
+    hologramChange
+    0.6s
+    ease;
+}
+
+@keyframes hologramChange {
+
+  0% {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+  40% {
+    opacity: 0.2;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1.12);
+
+    filter:
+      brightness(2)
+      drop-shadow(
+        0 0 35px
+        var(--mode-color)
+      );
+  }
+
+  70% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+}
+
+/* =========================================================
+   MODE INFORMATION
+========================================================= */
+
+.database-mode-info {
+  position: relative;
+
+  z-index: 10;
+
+  width: min(850px, 95vw);
+
+  min-height: 115px;
+
+  margin-top: 8px;
+
+  padding: 18px 25px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 25px;
+
+  border-top:
+    1px solid
+    rgba(130, 255, 100, 0.4);
+
+  border-bottom:
+    1px solid
+    rgba(130, 255, 100, 0.35);
+}
+
+.mode-icon-box {
+  flex-shrink: 0;
+
+  width: 82px;
+  height: 82px;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  border:
+    2px solid
+    var(--mode-color);
+
+  color:
+    var(--mode-color);
+
+  font-size: 40px;
+
+  text-shadow:
+    0 0 14px
+    var(--mode-color);
+
+  box-shadow:
+    0 0 20px
+      rgba(100, 255, 80, 0.1);
+}
+
+.mode-copy {
+  min-width: 0;
+}
+
+.mode-copy p {
+  margin:
+    0 0 7px;
+
+  font-size: 10px;
+
+  letter-spacing: 4px;
+
+  opacity: 0.6;
+}
+
+.mode-copy h2 {
+  margin:
+    0 0 9px;
+
+  font-size: 27px;
+
+  letter-spacing: 3px;
+
+  color:
+    var(--mode-color);
+
+  text-shadow:
+    0 0 10px
+    var(--mode-color);
+}
+
+.mode-copy span {
+  display: block;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  color:
+    rgba(215, 255, 200, 0.75);
+}
+
+/* =========================================================
+   MODE SELECTOR
+========================================================= */
+
+.database-selector {
+  position: relative;
+
+  z-index: 10;
+
+  width: min(850px, 95vw);
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, 1fr);
+
+  gap: 10px;
+
+  margin-top: 20px;
+}
+
+.mode-selector {
+  min-height: 88px;
+
+  padding: 10px 8px;
+
+  border:
+    1px solid
+    rgba(120, 160, 110, 0.25);
+
+  background:
+    rgba(5, 12, 7, 0.8);
+
+  color:
+    rgba(190, 220, 180, 0.6);
+
+  cursor: pointer;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  transition:
+    0.25s ease;
+}
+
+.mode-selector small {
+  align-self: flex-start;
+
+  font-size: 9px;
+
+  opacity: 0.7;
+}
+
+.mode-selector strong {
+  font-size: 26px;
+
+  font-weight: normal;
+}
+
+.mode-selector span {
+  width: 100%;
+
+  text-align: center;
+
+  font-size: 10px;
+
+  letter-spacing: 1px;
+}
+
+.mode-selector:hover,
+.mode-selector.active {
+  border-color:
+    var(--item-color);
+
+  color:
+    var(--item-color);
+
+  background:
+    rgba(100, 255, 80, 0.07);
+
+  box-shadow:
+    0 0 20px
+      rgba(100, 255, 80, 0.12);
+}
+
+/* =========================================================
+   DIAL
+========================================================= */
+
+.dial-instruction {
+  position: relative;
+
+  z-index: 10;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 35px;
+
+  margin-top: 22px;
+
+  font-size: 11px;
+
+  letter-spacing: 4px;
+
+  opacity: 0.75;
+}
+
+.dial-instruction button {
+  border: none;
+
+  background:
+    transparent;
+
+  color:
+    var(--mode-color);
+
+  font-size: 22px;
+
+  cursor: pointer;
+
+  text-shadow:
+    0 0 10px
+    var(--mode-color);
+}
+
+/* =========================================================
+   CLASSIFIED BUTTON
+========================================================= */
+
+.classified-button {
+  position: relative;
+
+  z-index: 10;
+
+  margin-top: 22px;
+
+  padding:
+    16px 32px;
+
+  border:
+    2px solid
+    rgba(130, 255, 100, 0.45);
+
+  background:
+    rgba(5, 12, 7, 0.9);
+
+  color:
+    var(--mode-color);
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  font-size: 11px;
+
+  letter-spacing: 3px;
+
+  cursor: pointer;
+
+  transition:
+    0.25s ease;
+}
+
+.classified-button span {
+  margin-left: 16px;
+
+  font-size: 18px;
+}
+
+.classified-button:hover {
+  background:
+    rgba(100, 255, 80, 0.08);
+
+  box-shadow:
+    0 0 25px
+      rgba(100, 255, 80, 0.25);
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .database-watch-area {
+    width: 100%;
+
+    height: 610px;
+  }
+
+  .watch-side-3d {
+    width: 650px;
+  }
+
+  .watch-shell {
+    width: 500px;
+  }
+
+  .watch-back {
+    width: 480px;
+  }
+
+  .watch-left {
+    left: -90px;
+  }
+
+  .watch-right {
+    right: -90px;
+  }
+}
+
+/* =========================================================
+   MOBILE RESPONSIVE — FINAL
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .database-page {
+    min-height: 100vh;
+
+    padding:
+      0
+      12px
+      45px;
+
+    overflow-x: hidden;
+  }
+
+  /* =====================================================
+     HEADER
+  ====================================================== */
+
+  .database-header {
+    width: 100%;
+
+    height: 45px;
+
+    grid-template-columns:
+      1fr auto;
+
+    gap: 10px;
+  }
+
+  .database-id strong {
+    font-size: 9px;
+
+    letter-spacing: 2px;
+  }
+
+  .database-id span {
+    font-size: 5px;
+
+    letter-spacing: 1px;
+  }
+
+  .database-name {
+    display: none;
+  }
+
+  .database-status {
+    font-size: 6px;
+
+    letter-spacing: 1px;
+
+    gap: 5px;
+  }
+
+  .database-status span {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* =====================================================
+     TITLE
+  ====================================================== */
+
+  .database-heading {
+    margin-top: 18px;
+  }
+
+  .database-heading p {
+    margin-bottom: 7px;
+
+    font-size: 7px;
+
+    letter-spacing: 3px;
+  }
+
+  .database-heading h1 {
+    font-size: 21px;
+
+    letter-spacing: 3px;
+  }
+
+  /* =====================================================
+     MAIN SCANNER AREA
+  ====================================================== */
+
+  .database-watch-area {
+    width: 100%;
+
+    height: 450px;
+
+    margin-top: 8px;
+
+    overflow: visible;
+  }
+
+  /* =====================================================
+     HOLOGRAM
+  ====================================================== */
+
+  .hologram-area {
+    left: 50%;
+    top: 0;
+
+    width: 270px;
+    height: 265px;
+
+    transform:
+      translateX(-50%);
+  }
+
+  .hologram-frame {
+    left: 50%;
+    top: 0;
+
+    width: 235px;
+    height: 230px;
+
+    transform:
+      translateX(-50%);
+
+    border-width: 2px;
+  }
+
+  /* Corners */
+
+  .scanner-corner {
+    width: 18px;
+    height: 18px;
+  }
+
+  .scanner-top-left,
+  .scanner-top-right,
+  .scanner-bottom-left,
+  .scanner-bottom-right {
+    border-width: 3px;
+  }
+
+  /* Hologram title */
+
+  .hologram-label {
+    top: 12px;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+  }
+
+  .hologram-number {
+    top: 30px;
+
+    font-size: 5px;
+
+    letter-spacing: 2px;
+  }
+
+  /* =====================================================
+     AYUSH STICKER
+  ====================================================== */
+
+  .hologram-sticker {
+    left: 50%;
+    top: 56%;
+
+    width: 165px;
+    height: 170px;
+
+    transform:
+      translate(-50%, -50%);
+
+    object-fit: contain;
+
+    object-position: center;
+
+    z-index: 12;
+  }
+
+  /* =====================================================
+     HOLOGRAM GLOW
+  ====================================================== */
+
+  .hologram-glow {
+    left: 50%;
+    top: 58%;
+
+    width: 155px;
+    height: 165px;
+
+    transform:
+      translate(-50%, -50%);
+
+    opacity: 0.12;
+
+    filter:
+      blur(22px);
+  }
+
+  /* =====================================================
+     SCAN LINE
+  ====================================================== */
+
+  .hologram-scan-line {
+    left: 10px;
+    right: 10px;
+
+    top: 45px;
+
+    height: 1px;
+  }
+
+  @keyframes hologramScan {
+
+    0% {
+      transform:
+        translateY(0);
+
+      opacity: 0;
+    }
+
+    10% {
+      opacity: 0.7;
+    }
+
+    90% {
+      opacity: 0.7;
+    }
+
+    100% {
+      transform:
+        translateY(175px);
+
+      opacity: 0;
+    }
+  }
+
+  /* =====================================================
+     HOLOGRAM STATUS
+  ====================================================== */
+
+  .hologram-status {
+    left: 12px;
+    bottom: 10px;
+
+    gap: 2px;
+
+    font-size: 5px;
+
+    letter-spacing: 1px;
+  }
+
+  .hologram-status strong {
+    font-size: 6px;
+  }
+
+  /* =====================================================
+     BEAM
+  ====================================================== */
+
+  .hologram-beam {
+    left: 50%;
+
+    bottom: 48px;
+
+    width: 125px;
+    height: 135px;
+
+    transform:
+      translateX(-50%);
+
+    opacity: 0.35;
+  }
+
+  /* =====================================================
+     HOLOGRAM BASE
+  ====================================================== */
+
+  .hologram-base {
+    left: 50%;
+
+    bottom: 35px;
+
+    width: 145px;
+    height: 34px;
+
+    transform:
+      translateX(-50%)
+      perspective(350px)
+      rotateX(65deg);
+
+    border-width: 1px;
+  }
+
+  .hologram-base span {
+    width: 80px;
+
+    height: 1px;
+  }
+
+  /* =====================================================
+     WATCH
+  ====================================================== */
+
+  .watch-side-3d {
+    left: 50%;
+
+    bottom: 2px;
+
+    width: 350px;
+    height: 125px;
+
+    transform:
+      translateX(-50%)
+      perspective(800px)
+      rotateX(14deg)
+      rotateY(-5deg)
+      rotateZ(-1deg);
+  }
+
+  /* =====================================================
+     WATCH SHADOW
+  ====================================================== */
+
+  .watch-shadow {
+    bottom: -20px;
+
+    width: 260px;
+    height: 30px;
+
+    filter:
+      blur(12px);
+  }
+
+  /* =====================================================
+     WATCH BACK
+  ====================================================== */
+
+  .watch-back {
+    left: 50%;
+    bottom: 8px;
+
+    width: 280px;
+    height: 88px;
+
+    transform:
+      translateX(-50%)
+      translateZ(-28px);
+
+    border-width: 2px;
+  }
+
+  /* =====================================================
+     MAIN WATCH
+  ====================================================== */
+
+  .watch-shell {
+    left: 50%;
+    bottom: 20px;
+
+    width: 290px;
+    height: 90px;
+
+    transform:
+      translateX(-50%)
+      translateZ(18px);
+
+    border-width: 3px;
+
+    border-radius:
+      55px
+      55px
+      34px
+      34px;
+  }
+
+  /* =====================================================
+     WATCH TOP
+  ====================================================== */
+
+  .watch-top-bevel {
+    left: 15px;
+    right: 15px;
+
+    top: 3px;
+
+    height: 17px;
+
+    border-top-width: 2px;
+  }
+
+  /* =====================================================
+     WATCH SCREEN
+  ====================================================== */
+
+  .watch-surface {
+    width: 178px;
+    height: 56px;
+
+    transform:
+      translate(-50%, -50%)
+      translateZ(18px);
+
+    border-width: 2px;
+  }
+
+  .watch-icon {
+    top: 39%;
+
+    font-size: 23px;
+  }
+
+  .watch-subject {
+    bottom: 5px;
+
+    gap: 5px;
+
+    font-size: 4px;
+
+    letter-spacing: 1px;
+  }
+
+  .watch-scan-light {
+    left: 12px;
+    right: 12px;
+
+    height: 1px;
+  }
+
+  /* =====================================================
+     WATCH BOTTOM
+  ====================================================== */
+
+  .watch-bottom-bevel {
+    left: 16px;
+    right: 16px;
+
+    bottom: 3px;
+
+    height: 10px;
+
+    border-bottom-width: 1px;
+  }
+
+  /* =====================================================
+     WATCH OUTER RIM
+  ====================================================== */
+
+  .watch-rim {
+    inset: -7px;
+
+    border-width: 2px;
+
+    border-radius:
+      63px
+      63px
+      42px
+      42px;
+  }
+
+  /* =====================================================
+     SIDE BUTTONS
+  ====================================================== */
+
+  .watch-side-button {
+    right: -15px;
+
+    width: 18px;
+
+    border-width: 1px;
+
+    border-radius: 5px;
+  }
+
+  .button-one {
+    top: 12px;
+
+    height: 24px;
+  }
+
+  .button-two {
+    top: 40px;
+
+    height: 30px;
+  }
+
+  .button-three {
+    top: 75px;
+
+    height: 15px;
+  }
+
+  /* =====================================================
+     NAVIGATION BUTTONS
+  ====================================================== */
+
+  .watch-control-3d {
+    width: 40px;
+    height: 40px;
+
+    font-size: 25px;
+
+    border-width: 1px;
+  }
+
+  .watch-left {
+    left: -3px;
+  }
+
+  .watch-right {
+    right: -3px;
+  }
+
+  /* =====================================================
+     MODE INFORMATION
+  ====================================================== */
+
+  .database-mode-info {
+    width: 100%;
+
+    min-height: 82px;
+
+    margin-top: 2px;
+
+    padding:
+      10px 12px;
+
+    gap: 12px;
+
+    box-sizing: border-box;
+  }
+
+  .mode-icon-box {
+    width: 54px;
+    height: 54px;
+
+    font-size: 24px;
+
+    border-width: 1px;
+  }
+
+  .mode-copy {
+    flex: 1;
+  }
+
+  .mode-copy p {
+    margin-bottom: 4px;
+
+    font-size: 6px;
+
+    letter-spacing: 2px;
+  }
+
+  .mode-copy h2 {
+    margin-bottom: 5px;
+
+    font-size: 16px;
+
+    letter-spacing: 2px;
+  }
+
+  .mode-copy span {
+    font-size: 8px;
+
+    line-height: 1.45;
+  }
+
+  /* =====================================================
+     FIVE MODES
+  ====================================================== */
+
+  .database-selector {
+    width: 100%;
+
+    margin-top: 12px;
+
+    gap: 3px;
+  }
+
+  .mode-selector {
+    min-width: 0;
+
+    min-height: 62px;
+
+    padding:
+      6px 2px;
+
+    box-sizing: border-box;
+  }
+
+  .mode-selector small {
+    align-self: flex-start;
+
+    font-size: 5px;
+  }
+
+  .mode-selector strong {
+    font-size: 16px;
+
+    line-height: 1;
+  }
+
+  .mode-selector span {
+    font-size: 5px;
+
+    letter-spacing: 0;
+
+    white-space: nowrap;
+  }
+
+  /* =====================================================
+     DIAL
+  ====================================================== */
+
+  .dial-instruction {
+    gap: 14px;
+
+    margin-top: 12px;
+
+    font-size: 7px;
+
+    letter-spacing: 2px;
+  }
+
+  .dial-instruction button {
+    font-size: 15px;
+  }
+
+  /* =====================================================
+     NEXT BUTTON
+  ====================================================== */
+
+  .classified-button {
+    margin-top: 14px;
+
+    padding:
+      11px 17px;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+  }
+
+  .classified-button span {
+    margin-left: 8px;
+
+    font-size: 14px;
+  }
+}
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .database-page {
+    padding:
+      0
+      9px
+      40px;
+  }
+
+  .database-heading {
+    margin-top: 15px;
+  }
+
+  .database-heading p {
+    font-size: 6px;
+
+    letter-spacing: 2px;
+  }
+
+  .database-heading h1 {
+    font-size: 19px;
+
+    letter-spacing: 3px;
+  }
+
+  /* =====================================================
+     SCANNER
+  ====================================================== */
+
+  .database-watch-area {
+    height: 425px;
+  }
+
+  .hologram-area {
+    width: 250px;
+    height: 245px;
+  }
+
+  .hologram-frame {
+    width: 215px;
+    height: 210px;
+  }
+
+  .hologram-label {
+    top: 10px;
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+  }
+
+  .hologram-number {
+    top: 27px;
+
+    font-size: 5px;
+  }
+
+  .hologram-sticker {
+    width: 150px;
+    height: 155px;
+
+    top: 57%;
+  }
+
+  .hologram-glow {
+    width: 140px;
+    height: 150px;
+  }
+
+  .hologram-status {
+    bottom: 8px;
+
+    font-size: 4px;
+  }
+
+  .hologram-status strong {
+    font-size: 5px;
+  }
+
+  .hologram-beam {
+    bottom: 43px;
+
+    width: 110px;
+    height: 120px;
+  }
+
+  .hologram-base {
+    bottom: 31px;
+
+    width: 125px;
+    height: 29px;
+  }
+
+  /* =====================================================
+     WATCH
+  ====================================================== */
+
+  .watch-side-3d {
+    width: 325px;
+    height: 115px;
+  }
+
+  .watch-shell {
+    width: 265px;
+    height: 82px;
+  }
+
+  .watch-back {
+    width: 255px;
+    height: 80px;
+  }
+
+  .watch-surface {
+    width: 160px;
+    height: 51px;
+  }
+
+  .watch-icon {
+    font-size: 21px;
+  }
+
+  .watch-side-button {
+    right: -14px;
+
+    width: 16px;
+  }
+
+  .button-one {
+    height: 22px;
+  }
+
+  .button-two {
+    top: 36px;
+
+    height: 28px;
+  }
+
+  .button-three {
+    top: 69px;
+
+    height: 13px;
+  }
+
+  .watch-control-3d {
+    width: 38px;
+    height: 38px;
+
+    font-size: 23px;
+  }
+
+  /* =====================================================
+     INFORMATION
+  ====================================================== */
+
+  .database-mode-info {
+    min-height: 78px;
+
+    padding:
+      9px 10px;
+
+    gap: 10px;
+  }
+
+  .mode-icon-box {
+    width: 49px;
+    height: 49px;
+
+    font-size: 22px;
+  }
+
+  .mode-copy h2 {
+    font-size: 14px;
+  }
+
+  .mode-copy span {
+    font-size: 7px;
+  }
+
+  /* =====================================================
+     MODES
+  ====================================================== */
+
+  .database-selector {
+    margin-top: 10px;
+
+    gap: 2px;
+  }
+
+  .mode-selector {
+    min-height: 57px;
+
+    padding:
+      5px 1px;
+  }
+
+  .mode-selector strong {
+    font-size: 14px;
+  }
+
+  .mode-selector span {
+    font-size: 5px;
+  }
+
+  /* =====================================================
+     DIAL
+  ====================================================== */
+
+  .dial-instruction {
+    margin-top: 10px;
+
+    gap: 10px;
+
+    font-size: 6px;
+  }
+
+  /* =====================================================
+     CLASSIFIED
+  ====================================================== */
+
+  .classified-button {
+    margin-top: 12px;
+
+    padding:
+      10px 14px;
+
+    font-size: 7px;
+  }
+}
+
+/* =========================================================
+   VERY SMALL PHONES — 360px
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .database-heading h1 {
+    font-size: 17px;
+  }
+
+  .database-watch-area {
+    height: 410px;
+  }
+
+  .hologram-frame {
+    width: 205px;
+    height: 200px;
+  }
+
+  .hologram-sticker {
+    width: 140px;
+    height: 145px;
+  }
+
+  .watch-side-3d {
+    width: 305px;
+  }
+
+  .watch-shell {
+    width: 250px;
+  }
+
+  .watch-back {
+    width: 240px;
+  }
+
+  .watch-surface {
+    width: 150px;
+  }
+
+  .watch-left {
+    left: 0;
+  }
+
+  .watch-right {
+    right: 0;
+  }
+
+  .mode-selector span {
+    font-size: 4.5px;
+  }
+}
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .database-page {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .database-heading h1 {
+    font-size: 18px;
+  }
+
+  .database-watch-area {
+    height: 475px;
+  }
+
+  .hologram-frame {
+    width: 225px;
+    height: 235px;
+  }
+
+  .hologram-sticker {
+    width: 165px;
+    height: 180px;
+  }
+
+  .watch-side-3d {
+    width: 330px;
+  }
+
+  .watch-shell {
+    width: 260px;
+  }
+
+  .watch-back {
+    width: 250px;
+  }
+
+  .watch-surface {
+    width: 160px;
+  }
+
+  .watch-left {
+    left: 0;
+  }
+
+  .watch-right {
+    right: 0;
+  }
+
+  .database-selector {
+    gap: 2px;
+  }
+
+  .mode-selector span {
+    font-size: 5px;
+  }
+}
+/* =========================================================
+   FINAL MOBILE HOLOGRAM RAY + STRONG 3D WATCH
+   ADD THIS AT THE VERY END OF database.css
+========================================================= */
+
+
+/* =========================================================
+   SCANNER RAY
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .hologram-area {
+    overflow: visible;
+    z-index: 35;
+  }
+
+  /*
+     The ray starts directly underneath
+     the hologram platform and travels
+     toward the watch.
+  */
+
+  .hologram-beam {
+    position: absolute;
+
+    left: 50%;
+    top: 205px;
+
+    bottom: auto;
+
+    width: 185px;
+    height: 145px;
+
+    transform:
+      translateX(-50%);
+
+    z-index: 20;
+
+    opacity: 1;
+
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(180, 255, 150, 0.42),
+        rgba(120, 255, 90, 0.24) 35%,
+        rgba(100, 255, 90, 0.12) 70%,
+        transparent
+      );
+
+    clip-path:
+      polygon(
+        43% 0%,
+        57% 0%,
+        82% 100%,
+        18% 100%
+      );
+
+    filter:
+      blur(2px);
+
+    animation:
+      scannerRayPulse 1.8s ease-in-out infinite;
+  }
+
+
+  /* bright center of the ray */
+
+  .hologram-beam::before {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 0;
+
+    width: 8px;
+    height: 100%;
+
+    transform:
+      translateX(-50%);
+
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(220, 255, 190, 0.85),
+        rgba(140, 255, 100, 0.35),
+        transparent
+      );
+
+    filter:
+      blur(4px);
+
+    box-shadow:
+      0 0 18px
+      rgba(150, 255, 110, 0.8);
+  }
+
+
+  /* scanning particles */
+
+  .hologram-beam::after {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 15px;
+
+    width: 3px;
+    height: 3px;
+
+    transform:
+      translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+      #d9ffd0;
+
+    box-shadow:
+      0 22px 0 rgba(180, 255, 150, 0.8),
+      0 47px 0 rgba(180, 255, 150, 0.5),
+      0 76px 0 rgba(180, 255, 150, 0.7),
+      0 103px 0 rgba(180, 255, 150, 0.4);
+
+    animation:
+      scannerParticles 1.2s linear infinite;
+  }
+
+
+  @keyframes scannerRayPulse {
+
+    0%,
+    100% {
+      opacity: 0.45;
+
+      filter:
+        blur(3px);
+    }
+
+    50% {
+      opacity: 1;
+
+      filter:
+        blur(1px)
+        drop-shadow(
+          0 0 15px
+          rgba(150, 255, 100, 0.8)
+        );
+    }
+  }
+
+
+  @keyframes scannerParticles {
+
+    0% {
+      transform:
+        translate(-50%, -5px);
+
+      opacity: 0;
+    }
+
+    30% {
+      opacity: 1;
+    }
+
+    100% {
+      transform:
+        translate(-50%, 115px);
+
+      opacity: 0;
+    }
+  }
+
+
+  /* =====================================================
+     SCANNER BASE — STRONGER GLOW
+  ====================================================== */
+
+  .hologram-base {
+    z-index: 30;
+
+    box-shadow:
+      0 0 10px
+        var(--mode-color),
+
+      0 0 25px
+        rgba(150, 255, 100, 0.6),
+
+      inset 0 0 18px
+        rgba(150, 255, 100, 0.5);
+  }
+
+
+  .hologram-base span {
+    box-shadow:
+      0 0 8px
+        var(--mode-color),
+
+      0 0 18px
+        var(--mode-color);
+  }
+
+
+  /* =====================================================
+     WATCH — MUCH MORE 3D
+  ====================================================== */
+
+  .watch-side-3d {
+
+    width: 370px;
+    height: 135px;
+
+    bottom: 0;
+
+    transform:
+      translateX(-50%)
+      perspective(700px)
+      rotateX(20deg)
+      rotateY(-13deg)
+      rotateZ(-2deg);
+
+    transform-style:
+      preserve-3d;
+
+    z-index: 50;
+  }
+
+
+  /* =====================================================
+     BACK THICKNESS
+  ====================================================== */
+
+  .watch-back {
+
+    width: 300px;
+    height: 96px;
+
+    bottom: 4px;
+
+    transform:
+      translateX(-50%)
+      translateZ(-38px)
+      translateY(12px);
+
+    border:
+      2px solid
+      rgba(100, 130, 90, 0.9);
+
+    background:
+      linear-gradient(
+        180deg,
+        #263d22 0%,
+        #111d10 35%,
+        #050805 75%,
+        #182818 100%
+      );
+
+    box-shadow:
+
+      0 12px 0
+        #020302,
+
+      0 22px 20px
+        rgba(0, 0, 0, 0.9),
+
+      inset 0 -10px 15px
+        rgba(0, 0, 0, 0.8);
+  }
+
+
+  /* =====================================================
+     MAIN WATCH BODY
+  ====================================================== */
+
+  .watch-shell {
+
+    width: 310px;
+    height: 100px;
+
+    bottom: 23px;
+
+    transform:
+      translateX(-50%)
+      translateZ(28px);
+
+    border:
+      3px solid
+      #91aa80;
+
+    border-radius:
+      58px
+      58px
+      38px
+      38px;
+
+    background:
+      linear-gradient(
+        180deg,
+        #9db58d 0%,
+        #718b62 6%,
+        #405b38 18%,
+        #233722 32%,
+        #102010 52%,
+        #071007 70%,
+        #213820 88%,
+        #0b130a 100%
+      );
+
+    box-shadow:
+
+      /* top highlight */
+
+      inset 0 5px 6px
+        rgba(245, 255, 230, 0.55),
+
+      /* front darkness */
+
+      inset 0 -15px 18px
+        rgba(0, 0, 0, 0.9),
+
+      /* outer glow */
+
+      0 0 12px
+        rgba(130, 255, 100, 0.35),
+
+      /* actual thickness */
+
+      0 11px 0
+        #0a1209,
+
+      0 17px 0
+        #030503,
+
+      /* cast shadow */
+
+      0 28px 35px
+        rgba(0, 0, 0, 0.95);
+  }
+
+
+  /* =====================================================
+     TOP 3D BEVEL
+  ====================================================== */
+
+  .watch-top-bevel {
+
+    left: 18px;
+    right: 18px;
+
+    top: 3px;
+
+    height: 23px;
+
+    border-radius: 50%;
+
+    border-top:
+      3px solid
+      rgba(245, 255, 235, 0.65);
+
+    border-bottom:
+      1px solid
+      rgba(20, 35, 18, 0.8);
+
+    transform:
+      translateZ(18px);
+  }
+
+
+  /* =====================================================
+     FRONT SCREEN — DEEPER
+  ====================================================== */
+
+  .watch-surface {
+
+    width: 190px;
+    height: 59px;
+
+    transform:
+      translate(-50%, -50%)
+      translateZ(32px);
+
+    background:
+      radial-gradient(
+        ellipse at 45% 35%,
+        #46633c 0%,
+        #243b20 30%,
+        #0d190c 62%,
+        #020502 100%
+      );
+
+    border:
+      3px solid
+      rgba(180, 210, 160, 0.7);
+
+    box-shadow:
+
+      inset 0 0 25px
+        #000,
+
+      inset 0 0 12px
+        var(--mode-color),
+
+      0 0 14px
+        rgba(140, 255, 100, 0.35),
+
+      0 5px 0
+        rgba(0, 0, 0, 0.7);
+  }
+
+
+  /* =====================================================
+     SCREEN INNER BEVEL
+  ====================================================== */
+
+  .watch-surface::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 5px;
+
+    border-radius: 50%;
+
+    border:
+      1px solid
+      rgba(210, 235, 190, 0.25);
+
+    pointer-events: none;
+  }
+
+
+  /* =====================================================
+     SCREEN LIGHT
+  ====================================================== */
+
+  .watch-scan-light {
+
+    left: 10px;
+    right: 10px;
+
+    height: 2px;
+
+    box-shadow:
+      0 0 8px
+        var(--mode-color),
+
+      0 0 18px
+        var(--mode-color);
+  }
+
+
+  /* =====================================================
+     WATCH ICON
+  ====================================================== */
+
+  .watch-icon {
+
+    font-size: 25px;
+
+    text-shadow:
+      0 0 8px
+        var(--mode-color),
+
+      0 0 20px
+        var(--mode-color),
+
+      0 0 30px
+        rgba(150, 255, 100, 0.5);
+  }
+
+
+  /* =====================================================
+     SIDE BUTTONS — MORE 3D
+  ====================================================== */
+
+  .watch-side-button {
+
+    right: -19px;
+
+    width: 20px;
+
+    border:
+      2px solid
+      rgba(220, 240, 205, 0.75);
+
+    background:
+      linear-gradient(
+        90deg,
+        #172717,
+        #b0c89e 35%,
+        #647b58 55%,
+        #1a2917
+      );
+
+    box-shadow:
+
+      3px 4px 0
+        #050805,
+
+      5px 7px 10px
+        rgba(0, 0, 0, 0.8);
+  }
+
+
+  .button-one {
+    top: 12px;
+
+    height: 25px;
+  }
+
+
+  .button-two {
+    top: 43px;
+
+    height: 32px;
+  }
+
+
+  .button-three {
+    top: 80px;
+
+    height: 16px;
+  }
+
+
+  /* =====================================================
+     OUTER WATCH RIM
+  ====================================================== */
+
+  .watch-rim {
+
+    inset: -8px;
+
+    border:
+      2px solid
+      rgba(180, 210, 160, 0.55);
+
+    box-shadow:
+
+      0 0 10px
+        rgba(140, 255, 100, 0.25),
+
+      inset 0 0 8px
+        rgba(180, 220, 160, 0.2);
+
+    transform:
+      translateZ(4px);
+  }
+
+
+  /* =====================================================
+     WATCH SHADOW
+  ====================================================== */
+
+  .watch-shadow {
+
+    width: 300px;
+    height: 35px;
+
+    bottom: -27px;
+
+    filter:
+      blur(15px);
+
+    opacity: 0.95;
+  }
+
+
+  /* =====================================================
+     NAVIGATION BUTTONS
+  ====================================================== */
+
+  .watch-control-3d {
+
+    width: 43px;
+    height: 43px;
+
+    top: 50%;
+
+    font-size: 27px;
+
+    border:
+      2px solid
+      rgba(150, 210, 130, 0.65);
+
+    box-shadow:
+
+      0 0 12px
+        rgba(120, 255, 100, 0.25),
+
+      inset 0 0 12px
+        rgba(120, 255, 100, 0.12);
+  }
+
+  .watch-left {
+    left: -8px;
+  }
+
+  .watch-right {
+    right: -8px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL PHONE — KEEP THE 3D EFFECT
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .database-watch-area {
+    height: 425px;
+  }
+
+
+  /* -----------------------------------------------------
+     RAY
+  ------------------------------------------------------ */
+
+  .hologram-beam {
+
+    top: 198px;
+
+    width: 165px;
+    height: 140px;
+  }
+
+
+  /* -----------------------------------------------------
+     WATCH
+  ------------------------------------------------------ */
+
+  .watch-side-3d {
+
+    width: 335px;
+    height: 125px;
+
+    transform:
+      translateX(-50%)
+      perspective(650px)
+      rotateX(20deg)
+      rotateY(-14deg)
+      rotateZ(-2deg);
+  }
+
+
+  .watch-shell {
+
+    width: 285px;
+    height: 92px;
+
+    bottom: 22px;
+  }
+
+
+  .watch-back {
+
+    width: 275px;
+    height: 88px;
+  }
+
+
+  .watch-surface {
+
+    width: 175px;
+    height: 55px;
+  }
+
+
+  .watch-control-3d {
+
+    width: 39px;
+    height: 39px;
+
+    font-size: 24px;
+  }
+
+
+  .watch-left {
+    left: -4px;
+  }
+
+  .watch-right {
+    right: -4px;
+  }
+
+
+  .watch-side-button {
+    right: -17px;
+
+    width: 18px;
+  }
+
+}
+
+
+/* =========================================================
+   EXTRA SMALL — 360px
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .database-watch-area {
+    height: 415px;
+  }
+
+
+  .hologram-beam {
+
+    top: 192px;
+
+    width: 150px;
+    height: 135px;
+  }
+
+
+  .watch-side-3d {
+
+    width: 310px;
+  }
+
+
+  .watch-shell {
+
+    width: 260px;
+    height: 88px;
+  }
+
+
+  .watch-back {
+
+    width: 250px;
+    height: 84px;
+  }
+
+
+  .watch-surface {
+
+    width: 160px;
+    height: 52px;
+  }
+
+}
+/* =========================================================
+   FINAL MOBILE WATCH
+   STRAIGHT FRONT VIEW — NO SLANT
+========================================================= */
+
+@media (max-width: 700px) {
+
+  /* =====================================================
+     MAIN MOBILE AREA
+  ====================================================== */
+
+  .database-watch-area {
+    width: 100%;
+    height: 440px;
+
+    position: relative;
+
+    overflow: visible;
+  }
+
+
+  /* =====================================================
+     HOLOGRAM
+  ====================================================== */
+
+  .hologram-area {
+    position: absolute;
+
+    left: 50%;
+    top: 0;
+
+    width: 270px;
+    height: 270px;
+
+    transform: translateX(-50%);
+
+    z-index: 30;
+  }
+
+  .hologram-frame {
+    width: 235px;
+    height: 225px;
+
+    left: 50%;
+    top: 0;
+
+    transform: translateX(-50%);
+  }
+
+  .hologram-sticker {
+    width: 165px;
+    height: 170px;
+
+    left: 50%;
+    top: 56%;
+
+    transform: translate(-50%, -50%);
+
+    object-fit: contain;
+  }
+
+
+  /* =====================================================
+     SCANNER RAY
+  ====================================================== */
+
+  .hologram-beam {
+    position: absolute;
+
+    left: 50%;
+    top: 205px;
+
+    width: 170px;
+    height: 155px;
+
+    bottom: auto;
+
+    transform: translateX(-50%);
+
+    z-index: 15;
+
+    opacity: 1;
+
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(190, 255, 170, 0.48),
+        rgba(120, 255, 90, 0.25),
+        transparent
+      );
+
+    clip-path:
+      polygon(
+        43% 0%,
+        57% 0%,
+        82% 100%,
+        18% 100%
+      );
+
+    filter: blur(2px);
+
+    animation:
+      mobileRayPulse 1.8s ease-in-out infinite;
+  }
+
+  .hologram-beam::before {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 0;
+
+    width: 6px;
+    height: 100%;
+
+    transform: translateX(-50%);
+
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(230, 255, 220, 0.9),
+        rgba(150, 255, 110, 0.35),
+        transparent
+      );
+
+    filter: blur(3px);
+
+    box-shadow:
+      0 0 15px rgba(150, 255, 100, 0.8);
+  }
+
+  @keyframes mobileRayPulse {
+
+    0%,
+    100% {
+      opacity: 0.45;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
+
+
+  /* =====================================================
+     HOLOGRAM PLATFORM
+  ====================================================== */
+
+  .hologram-base {
+    position: absolute;
+
+    left: 50%;
+    bottom: 34px;
+
+    width: 145px;
+    height: 32px;
+
+    transform:
+      translateX(-50%)
+      perspective(350px)
+      rotateX(65deg);
+
+    z-index: 25;
+  }
+
+
+  /* =====================================================
+     WATCH CONTAINER
+     IMPORTANT: NO ROTATION
+  ====================================================== */
+
+  .watch-side-3d {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 0;
+
+    width: 350px;
+    height: 130px;
+
+    /*
+      NO rotateX
+      NO rotateY
+      NO rotateZ
+    */
+
+    transform:
+      translateX(-50%);
+
+    transform-style: preserve-3d;
+
+    z-index: 50;
+  }
+
+
+  /* =====================================================
+     WATCH SHADOW
+  ====================================================== */
+
+  .watch-shadow {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: -25px;
+
+    width: 285px;
+    height: 35px;
+
+    transform:
+      translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+      rgba(0, 0, 0, 0.9);
+
+    filter:
+      blur(14px);
+
+    opacity: 0.9;
+
+    z-index: 1;
+  }
+
+
+  /* =====================================================
+     BACK BODY
+     Creates the depth without tilting
+  ====================================================== */
+
+  .watch-back {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 7px;
+
+    width: 300px;
+    height: 92px;
+
+    transform:
+      translateX(-50%)
+      translateZ(-30px)
+      translateY(11px);
+
+    border-radius:
+      55px
+      55px
+      35px
+      35px;
+
+    background:
+      linear-gradient(
+        180deg,
+        #2c4227,
+        #172417 35%,
+        #060a06 75%,
+        #162516
+      );
+
+    border:
+      2px solid
+      #405a38;
+
+    box-shadow:
+
+      0 12px 0 #020302,
+
+      0 20px 25px
+      rgba(0, 0, 0, 0.85),
+
+      inset 0 -10px 15px
+      rgba(0, 0, 0, 0.8);
+
+    z-index: 2;
+  }
+
+
+  /* =====================================================
+     MAIN WATCH BODY
+  ====================================================== */
+
+  .watch-shell {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 25px;
+
+    width: 310px;
+    height: 100px;
+
+    /*
+      Absolutely NO rotation.
+      The 3D effect comes from layers.
+    */
+
+    transform:
+      translateX(-50%)
+      translateZ(25px);
+
+    transform-style: preserve-3d;
+
+    border-radius:
+      58px
+      58px
+      38px
+      38px;
+
+    border:
+      3px solid
+      #8da67e;
+
+    background:
+      linear-gradient(
+        180deg,
+        #a5bc95 0%,
+        #718a62 7%,
+        #465e3d 17%,
+        #263a23 30%,
+        #132212 52%,
+        #081007 72%,
+        #243b20 90%,
+        #0a1209 100%
+      );
+
+    box-shadow:
+
+      /* bright top edge */
+      inset 0 6px 7px
+      rgba(245, 255, 230, 0.6),
+
+      /* deep bottom */
+      inset 0 -18px 20px
+      rgba(0, 0, 0, 0.9),
+
+      /* green glow */
+      0 0 15px
+      rgba(130, 255, 100, 0.35),
+
+      /* thickness */
+      0 10px 0
+      #0a1209,
+
+      0 17px 0
+      #030503,
+
+      /* shadow */
+      0 25px 35px
+      rgba(0, 0, 0, 0.9);
+
+    z-index: 5;
+  }
+
+
+  /* =====================================================
+     TOP 3D BEVEL
+  ====================================================== */
+
+  .watch-top-bevel {
+
+    position: absolute;
+
+    left: 18px;
+    right: 18px;
+
+    top: 3px;
+
+    height: 24px;
+
+    border-radius: 50%;
+
+    border-top:
+      3px solid
+      rgba(245, 255, 230, 0.65);
+
+    border-bottom:
+      1px solid
+      rgba(0, 0, 0, 0.65);
+
+    transform:
+      translateZ(15px);
+  }
+
+
+  /* =====================================================
+     FRONT SCREEN
+  ====================================================== */
+
+  .watch-surface {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 190px;
+    height: 60px;
+
+    transform:
+      translate(-50%, -50%)
+      translateZ(30px);
+
+    border-radius: 50%;
+
+    background:
+      radial-gradient(
+        ellipse at center,
+        #46623d,
+        #253a21 35%,
+        #0c170b 68%,
+        #020502 100%
+      );
+
+    border:
+      3px solid
+      rgba(185, 215, 165, 0.7);
+
+    box-shadow:
+
+      inset 0 0 25px
+      #000,
+
+      inset 0 0 13px
+      var(--mode-color),
+
+      0 0 18px
+      rgba(130, 255, 100, 0.35),
+
+      0 5px 0
+      rgba(0, 0, 0, 0.8);
+
+    overflow: hidden;
+
+    z-index: 10;
+  }
+
+
+  /* inner screen bevel */
+
+  .watch-surface::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 5px;
+
+    border-radius: 50%;
+
+    border:
+      1px solid
+      rgba(230, 255, 220, 0.28);
+
+    pointer-events: none;
+  }
+
+
+  /* =====================================================
+     WATCH ICON
+  ====================================================== */
+
+  .watch-icon {
+
+    position: absolute;
+
+    left: 50%;
+    top: 40%;
+
+    transform:
+      translate(-50%, -50%);
+
+    font-size: 25px;
+
+    color:
+      var(--mode-color);
+
+    text-shadow:
+
+      0 0 8px
+      var(--mode-color),
+
+      0 0 18px
+      var(--mode-color),
+
+      0 0 28px
+      rgba(150, 255, 100, 0.5);
+
+    z-index: 5;
+  }
+
+
+  /* =====================================================
+     SUBJECT TEXT
+  ====================================================== */
+
+  .watch-subject {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 7px;
+
+    transform:
+      translateX(-50%);
+
+    display: flex;
+
+    gap: 6px;
+
+    white-space: nowrap;
+
+    font-size: 5px;
+
+    letter-spacing: 1.5px;
+
+    z-index: 5;
+  }
+
+
+  /* =====================================================
+     SCAN LIGHT
+  ====================================================== */
+
+  .watch-scan-light {
+
+    position: absolute;
+
+    left: 12px;
+    right: 12px;
+
+    top: 50%;
+
+    height: 2px;
+
+    transform:
+      translateY(-50%);
+
+    background:
+      linear-gradient(
+        90deg,
+        transparent,
+        var(--mode-color),
+        transparent
+      );
+
+    box-shadow:
+      0 0 10px
+      var(--mode-color);
+
+    opacity: 0.75;
+  }
+
+
+  /* =====================================================
+     OUTER RIM
+  ====================================================== */
+
+  .watch-rim {
+
+    position: absolute;
+
+    inset: -9px;
+
+    border-radius:
+      66px
+      66px
+      43px
+      43px;
+
+    border:
+      2px solid
+      rgba(180, 210, 160, 0.55);
+
+    box-shadow:
+
+      0 0 12px
+      rgba(130, 255, 100, 0.25),
+
+      inset 0 0 8px
+      rgba(180, 220, 160, 0.2);
+
+    transform:
+      translateZ(5px);
+
+    pointer-events: none;
+  }
+
+
+  /* =====================================================
+     BOTTOM BEVEL
+  ====================================================== */
+
+  .watch-bottom-bevel {
+
+    left: 18px;
+    right: 18px;
+
+    bottom: 4px;
+
+    height: 13px;
+
+    border-radius: 50%;
+
+    border-bottom:
+      2px solid
+      rgba(170, 200, 150, 0.45);
+
+    transform:
+      translateZ(13px);
+  }
+
+
+  /* =====================================================
+     SIDE BUTTONS
+  ====================================================== */
+
+  .watch-side-button {
+
+    position: absolute;
+
+    right: -19px;
+
+    width: 20px;
+
+    border-radius: 6px;
+
+    background:
+      linear-gradient(
+        90deg,
+        #172617,
+        #b5cc9f 38%,
+        #687d5b 58%,
+        #182719
+      );
+
+    border:
+      2px solid
+      rgba(220, 240, 205, 0.75);
+
+    box-shadow:
+
+      3px 4px 0
+      #050805,
+
+      5px 7px 10px
+      rgba(0, 0, 0, 0.8);
+
+    transform:
+      translateZ(12px);
+
+    z-index: 20;
+  }
+
+  .button-one {
+    top: 13px;
+    height: 25px;
+  }
+
+  .button-two {
+    top: 44px;
+    height: 32px;
+  }
+
+  .button-three {
+    top: 81px;
+    height: 16px;
+  }
+
+
+  /* =====================================================
+     LEFT / RIGHT CONTROLS
+  ====================================================== */
+
+  .watch-control-3d {
+
+    width: 42px;
+    height: 42px;
+
+    top: 50%;
+
+    transform:
+      translateY(-50%);
+
+    border:
+      2px solid
+      rgba(150, 210, 130, 0.65);
+
+    border-radius: 50%;
+
+    background:
+      radial-gradient(
+        circle,
+        rgba(40, 80, 35, 0.65),
+        rgba(2, 7, 3, 0.98)
+      );
+
+    color:
+      var(--mode-color);
+
+    font-size: 27px;
+
+    z-index: 100;
+  }
+
+  .watch-control-3d:hover {
+    transform:
+      translateY(-50%);
+  }
+
+  .watch-left {
+    left: -6px;
+  }
+
+  .watch-right {
+    right: -6px;
+  }
+}
+
+
+/* =========================================================
+   420px AND BELOW
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .database-watch-area {
+    height: 430px;
+  }
+
+  /* Hologram */
+
+  .hologram-area {
+    width: 250px;
+    height: 255px;
+  }
+
+  .hologram-frame {
+    width: 215px;
+    height: 210px;
+  }
+
+  .hologram-sticker {
+    width: 150px;
+    height: 155px;
+  }
+
+  /* Ray */
+
+  .hologram-beam {
+    top: 195px;
+
+    width: 155px;
+    height: 145px;
+  }
+
+  /* Watch */
+
+  .watch-side-3d {
+
+    width: 330px;
+    height: 120px;
+
+    /*
+      STILL COMPLETELY STRAIGHT
+    */
+
+    transform:
+      translateX(-50%);
+  }
+
+  .watch-shell {
+    width: 280px;
+    height: 91px;
+  }
+
+  .watch-back {
+    width: 270px;
+    height: 87px;
+  }
+
+  .watch-surface {
+    width: 170px;
+    height: 54px;
+  }
+
+  .watch-control-3d {
+    width: 39px;
+    height: 39px;
+
+    font-size: 24px;
+  }
+
+  .watch-left {
+    left: -3px;
+  }
+
+  .watch-right {
+    right: -3px;
+  }
+}
+
+
+/* =========================================================
+   360px AND BELOW
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .database-watch-area {
+    height: 415px;
+  }
+
+  .hologram-frame {
+    width: 205px;
+    height: 200px;
+  }
+
+  .hologram-sticker {
+    width: 140px;
+    height: 145px;
+  }
+
+  .hologram-beam {
+    top: 190px;
+
+    width: 145px;
+    height: 135px;
+  }
+
+  .watch-side-3d {
+    width: 310px;
+  }
+
+  .watch-shell {
+    width: 260px;
+    height: 87px;
+  }
+
+  .watch-back {
+    width: 250px;
+    height: 83px;
+  }
+
+  .watch-surface {
+    width: 158px;
+    height: 51px;
+  }
+
+  .watch-left {
+    left: 0;
+  }
+
+  .watch-right {
+    right: 0;
+  }
+}
+/* =========================================================
+   3D SIDE BUTTONS — ATTACHED TO WATCH
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .watch-side-button {
+    position: absolute;
+
+    right: -10px;
+
+    width: 21px;
+
+    border-radius: 6px;
+
+    /* metallic 3D surface */
+    background:
+      linear-gradient(
+        90deg,
+        #172416 0%,
+        #41583a 18%,
+        #b9d19f 42%,
+        #d1e4b9 50%,
+        #718765 68%,
+        #263824 86%,
+        #0c130b 100%
+      );
+
+    border:
+      2px solid
+      #9fb890;
+
+    /* depth + glow */
+    box-shadow:
+      inset 2px 0 3px rgba(235,255,220,0.65),
+      inset -3px 0 4px rgba(0,0,0,0.7),
+
+      3px 3px 0 #172417,
+      5px 5px 0 #070b07,
+
+      6px 7px 10px rgba(0,0,0,0.8),
+
+      0 0 7px rgba(140,255,100,0.35);
+
+    transform:
+      translateZ(22px);
+
+    z-index: 100;
+
+    overflow: hidden;
+  }
+
+
+  /* shiny vertical highlight */
+
+  .watch-side-button::before {
+    content: "";
+
+    position: absolute;
+
+    left: 3px;
+    top: 3px;
+    bottom: 3px;
+
+    width: 3px;
+
+    border-radius: 5px;
+
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.7),
+        rgba(220,255,200,0.25),
+        transparent
+      );
+
+    opacity: 0.8;
+  }
+
+
+  /* dark recessed edge */
+
+  .watch-side-button::after {
+    content: "";
+
+    position: absolute;
+
+    right: 2px;
+    top: 3px;
+    bottom: 3px;
+
+    width: 3px;
+
+    border-radius: 4px;
+
+    background:
+      rgba(0,0,0,0.4);
+  }
+
+
+  /* =====================================================
+     TOP BUTTON
+  ====================================================== */
+
+  .button-one {
+    top: 11px;
+
+    height: 25px;
+
+    border-radius:
+      5px
+      5px
+      7px
+      7px;
+  }
+
+
+  /* =====================================================
+     MIDDLE BUTTON — LARGER
+  ====================================================== */
+
+  .button-two {
+    top: 42px;
+
+    width: 23px;
+    height: 34px;
+
+    right: -11px;
+
+    border-radius: 7px;
+
+    box-shadow:
+      inset 2px 0 4px rgba(240,255,225,0.7),
+      inset -3px 0 5px rgba(0,0,0,0.75),
+
+      3px 4px 0 #172417,
+      6px 7px 0 #070b07,
+
+      7px 9px 12px rgba(0,0,0,0.85),
+
+      0 0 9px rgba(140,255,100,0.4);
+  }
+
+
+  /* =====================================================
+     BOTTOM BUTTON
+  ====================================================== */
+
+  .button-three {
+    top: 82px;
+
+    height: 17px;
+
+    border-radius:
+      6px
+      6px
+      8px
+      8px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .watch-side-button {
+    right: -9px;
+
+    width: 19px;
+  }
+
+  .button-one {
+    top: 10px;
+    height: 23px;
+  }
+
+  .button-two {
+    top: 39px;
+
+    width: 21px;
+    height: 31px;
+
+    right: -10px;
+  }
+
+  .button-three {
+    top: 76px;
+    height: 16px;
+  }
+}
+
+
+/* =========================================================
+   360px
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .watch-side-button {
+    right: -8px;
+
+    width: 18px;
+  }
+
+  .button-one {
+    height: 22px;
+  }
+
+  .button-two {
+    width: 20px;
+    height: 29px;
+
+    top: 37px;
+  }
+
+  .button-three {
+    top: 72px;
+    height: 15px;
+  }
+}
+/* =========================================================
+   FINAL MOBILE DATABASE WATCH
+   REALISTIC 3D / STRAIGHT / NO BOX BORDER
+========================================================= */
+
+@media (max-width: 700px) {
+
+  /* =======================================================
+     REMOVE HOLOGRAM RECTANGLE
+  ======================================================= */
+
+  .hologram-frame {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  /*
+     Remove the large rectangular pink corners.
+     The hologram itself remains visible.
+  */
+
+  .hologram-frame .scanner-corner {
+    display: none;
+  }
+
+  /*
+     Keep the hologram area itself transparent.
+  */
+
+  .hologram-area {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+
+  /* =======================================================
+     WATCH AREA
+  ======================================================= */
+
+  .database-watch-area {
+    position: relative;
+
+    width: 100%;
+    height: 425px;
+
+    overflow: visible;
+  }
+
+
+  /* =======================================================
+     SCANNER RAY
+  ======================================================= */
+
+  .hologram-beam {
+    position: absolute;
+
+    left: 50%;
+    top: 205px;
+
+    width: 120px;
+    height: 145px;
+
+    transform: translateX(-50%);
+
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(205,255,185,0.65),
+        rgba(125,255,90,0.38) 40%,
+        rgba(80,220,70,0.12) 80%,
+        transparent
+      );
+
+    clip-path:
+      polygon(
+        47% 0%,
+        53% 0%,
+        70% 100%,
+        30% 100%
+      );
+
+    filter:
+      blur(1.5px);
+
+    opacity: 0.95;
+
+    z-index: 15;
+
+    animation:
+      scannerPulse 1.7s ease-in-out infinite;
+  }
+
+
+  .hologram-beam::before {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 0;
+
+    width: 4px;
+    height: 100%;
+
+    transform: translateX(-50%);
+
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(240,255,230,1),
+        rgba(170,255,120,0.75),
+        transparent
+      );
+
+    filter: blur(2px);
+
+    box-shadow:
+      0 0 8px #d8ffc5,
+      0 0 18px #91ff69,
+      0 0 30px rgba(100,255,80,0.45);
+  }
+
+
+  @keyframes scannerPulse {
+
+    0%,
+    100% {
+      opacity: 0.5;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
+
+
+  /* =======================================================
+     WATCH CONTAINER
+     COMPLETELY STRAIGHT
+  ======================================================= */
+
+  .watch-side-3d {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 0;
+
+    width: 345px;
+    height: 128px;
+
+    transform:
+      translateX(-50%);
+
+    transform-style:
+      preserve-3d;
+
+    perspective: 1000px;
+
+    z-index: 50;
+  }
+
+
+  /* =======================================================
+     REALISTIC WATCH SHADOW
+  ======================================================= */
+
+  .watch-shadow {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: -24px;
+
+    width: 300px;
+    height: 30px;
+
+    transform:
+      translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+      rgba(0,0,0,0.95);
+
+    filter:
+      blur(14px);
+
+    opacity: 0.9;
+
+    z-index: 1;
+  }
+
+
+  /* =======================================================
+     BACK OF WATCH
+     Creates actual physical thickness
+  ======================================================= */
+
+  .watch-back {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 5px;
+
+    width: 305px;
+    height: 94px;
+
+    transform:
+      translateX(-50%)
+      translateZ(-35px)
+      translateY(13px);
+
+    border-radius:
+      58px
+      58px
+      38px
+      38px;
+
+    background:
+      linear-gradient(
+        180deg,
+        #34472e 0%,
+        #202f1c 25%,
+        #0c120a 65%,
+        #020402 100%
+      );
+
+    border:
+      2px solid
+      #40533a;
+
+    box-shadow:
+
+      0 10px 0 #050805,
+
+      0 17px 0 #020302,
+
+      0 25px 25px
+      rgba(0,0,0,0.95),
+
+      inset 0 -14px 18px
+      rgba(0,0,0,0.9);
+
+    z-index: 2;
+  }
+
+
+  /* =======================================================
+     MAIN WATCH BODY
+  ======================================================= */
+
+  .watch-shell {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 25px;
+
+    width: 315px;
+    height: 101px;
+
+    transform:
+      translateX(-50%)
+      translateZ(25px);
+
+    transform-style:
+      preserve-3d;
+
+    border-radius:
+      60px
+      60px
+      40px
+      40px;
+
+    border:
+      3px solid
+      #879c78;
+
+    background:
+      linear-gradient(
+        180deg,
+
+        #d1dfc4 0%,
+        #a1b695 4%,
+        #6f875f 10%,
+        #3e5534 19%,
+        #263a22 31%,
+        #152315 48%,
+        #0b1309 68%,
+        #182a16 83%,
+        #344c2d 94%,
+        #0b1209 100%
+      );
+
+    box-shadow:
+
+      /* top reflection */
+      inset 0 5px 7px
+      rgba(255,255,245,0.7),
+
+      /* side darkness */
+      inset 8px 0 12px
+      rgba(0,0,0,0.35),
+
+      /* bottom depth */
+      inset 0 -18px 20px
+      rgba(0,0,0,0.95),
+
+      /* green device glow */
+      0 0 12px
+      rgba(130,255,100,0.4),
+
+      0 0 28px
+      rgba(90,255,70,0.12),
+
+      /* physical thickness */
+      0 8px 0 #111c0f,
+
+      0 14px 0 #070c06,
+
+      0 21px 0 #020302,
+
+      /* floor shadow */
+      0 29px 30px
+      rgba(0,0,0,0.95);
+
+    z-index: 5;
+  }
+
+
+  /* =======================================================
+     TOP METAL HIGHLIGHT
+  ======================================================= */
+
+  .watch-top-bevel {
+
+    position: absolute;
+
+    left: 17px;
+    right: 17px;
+
+    top: 3px;
+
+    height: 27px;
+
+    border-radius: 50%;
+
+    border-top:
+      3px solid
+      rgba(250,255,242,0.72);
+
+    border-bottom:
+      1px solid
+      rgba(30,45,25,0.75);
+
+    box-shadow:
+      0 2px 5px
+      rgba(255,255,255,0.15);
+
+    transform:
+      translateZ(17px);
+
+    z-index: 8;
+  }
+
+
+  /* =======================================================
+     OUTER METAL RIM
+  ======================================================= */
+
+  .watch-rim {
+
+    position: absolute;
+
+    inset: -9px;
+
+    border-radius:
+      68px
+      68px
+      46px
+      46px;
+
+    border:
+      2px solid
+      rgba(194,215,178,0.65);
+
+    background:
+      transparent;
+
+    box-shadow:
+
+      0 0 8px
+      rgba(150,255,110,0.3),
+
+      inset 0 0 7px
+      rgba(220,240,200,0.25);
+
+    transform:
+      translateZ(7px);
+
+    pointer-events: none;
+
+    z-index: 15;
+  }
+
+
+  /* =======================================================
+     FRONT SCREEN
+  ======================================================= */
+
+  .watch-surface {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 188px;
+    height: 60px;
+
+    transform:
+      translate(-50%, -50%)
+      translateZ(34px);
+
+    border-radius:
+      50%;
+
+    border:
+      3px solid
+      #9caf8f;
+
+    background:
+
+      radial-gradient(
+        ellipse at 50% 35%,
+        #4b6741 0%,
+        #2d4428 25%,
+        #152513 48%,
+        #081008 75%,
+        #020402 100%
+      );
+
+    box-shadow:
+
+      /* deep screen */
+      inset 0 0 25px
+      rgba(0,0,0,0.95),
+
+      inset 0 0 10px
+      var(--mode-color),
+
+      /* raised screen */
+      0 0 7px
+      rgba(210,230,195,0.35),
+
+      0 4px 0
+      rgba(0,0,0,0.75),
+
+      0 7px 10px
+      rgba(0,0,0,0.65);
+
+    overflow: hidden;
+
+    z-index: 20;
+  }
+
+
+  /* Screen glass reflection */
+
+  .watch-surface::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 12%;
+    top: 7px;
+
+    width: 76%;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255,255,255,0.16),
+        transparent
+      );
+
+    filter:
+      blur(2px);
+
+    pointer-events: none;
+  }
+
+
+  /* =======================================================
+     WATCH ICON
+  ======================================================= */
+
+  .watch-icon {
+
+    font-size: 25px;
+
+    color:
+      var(--mode-color);
+
+    text-shadow:
+
+      0 0 6px
+      var(--mode-color),
+
+      0 0 14px
+      var(--mode-color),
+
+      0 0 25px
+      rgba(150,255,100,0.7);
+
+    z-index: 30;
+  }
+
+
+  /* =======================================================
+     SCREEN SCANNER LINE
+  ======================================================= */
+
+  .watch-scan-light {
+
+    left: 12px;
+    right: 12px;
+
+    height: 1px;
+
+    background:
+      linear-gradient(
+        90deg,
+        transparent,
+        var(--mode-color),
+        transparent
+      );
+
+    box-shadow:
+      0 0 8px
+      var(--mode-color),
+
+      0 0 18px
+      var(--mode-color);
+
+    opacity: 0.8;
+  }
+
+
+  /* =======================================================
+     SUBJECT TEXT
+  ======================================================= */
+
+  .watch-subject {
+
+    font-size: 5px;
+
+    letter-spacing: 1.5px;
+
+    color:
+      rgba(210,235,195,0.75);
+
+    text-shadow:
+      0 0 5px
+      var(--mode-color);
+  }
+
+
+  /* =======================================================
+     REALISTIC SIDE BUTTON ASSEMBLY
+  ======================================================= */
+
+  .watch-side-button {
+
+    position: absolute;
+
+    right: -16px;
+
+    width: 20px;
+
+    background:
+      linear-gradient(
+        90deg,
+
+        #172116 0%,
+        #52664a 18%,
+        #b9cda8 38%,
+        #e2ecd8 49%,
+        #8a9d7b 64%,
+        #43543b 82%,
+        #121b10 100%
+      );
+
+    border:
+      2px solid
+      #8fa583;
+
+    border-radius:
+      7px;
+
+    box-shadow:
+
+      inset 2px 0 3px
+      rgba(255,255,255,0.65),
+
+      inset -3px 0 4px
+      rgba(0,0,0,0.8),
+
+      2px 3px 0
+      #263521,
+
+      4px 5px 0
+      #090e08,
+
+      5px 8px 10px
+      rgba(0,0,0,0.9);
+
+    transform:
+      translateZ(35px);
+
+    z-index: 100;
+
+    overflow: hidden;
+  }
+
+
+  /* Button highlight */
+
+  .watch-side-button::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 3px;
+    top: 3px;
+    bottom: 3px;
+
+    width: 3px;
+
+    border-radius: 5px;
+
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.85),
+        rgba(230,255,215,0.35),
+        transparent
+      );
+  }
+
+
+  /* Button recessed edge */
+
+  .watch-side-button::after {
+
+    content: "";
+
+    position: absolute;
+
+    right: 2px;
+    top: 3px;
+    bottom: 3px;
+
+    width: 3px;
+
+    border-radius: 4px;
+
+    background:
+      rgba(0,0,0,0.45);
+  }
+
+
+  /* -------------------------------------------------------
+     TOP BUTTON
+  ------------------------------------------------------- */
+
+  .button-one {
+
+    top: 11px;
+
+    height: 24px;
+
+    right: -16px;
+  }
+
+
+  /* -------------------------------------------------------
+     MAIN BUTTON
+  ------------------------------------------------------- */
+
+  .button-two {
+
+    top: 40px;
+
+    width: 22px;
+    height: 34px;
+
+    right: -17px;
+
+    border-radius:
+      7px;
+  }
+
+
+  /* -------------------------------------------------------
+     LOWER BUTTON
+  ------------------------------------------------------- */
+
+  .button-three {
+
+    top: 81px;
+
+    height: 18px;
+
+    right: -16px;
+  }
+
+
+  /* =======================================================
+     BOTTOM BEVEL
+  ======================================================= */
+
+  .watch-bottom-bevel {
+
+    left: 20px;
+    right: 20px;
+
+    bottom: 4px;
+
+    height: 14px;
+
+    border-radius: 50%;
+
+    border-bottom:
+      2px solid
+      rgba(180,205,165,0.45);
+
+    transform:
+      translateZ(15px);
+
+    z-index: 10;
+  }
+
+
+  /* =======================================================
+     NAVIGATION BUTTONS
+  ======================================================= */
+
+  .watch-control-3d {
+
+    width: 40px;
+    height: 40px;
+
+    border:
+      1px solid
+      rgba(150,210,130,0.6);
+
+    background:
+      radial-gradient(
+        circle,
+        rgba(35,65,30,0.8),
+        rgba(3,8,4,0.95)
+      );
+
+    color:
+      var(--mode-color);
+
+    box-shadow:
+
+      0 0 10px
+      rgba(120,255,100,0.25),
+
+      inset 0 0 8px
+      rgba(120,255,100,0.15);
+
+    z-index: 120;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .watch-side-3d {
+    width: 330px;
+    height: 123px;
+  }
+
+  .watch-shell {
+    width: 300px;
+    height: 97px;
+  }
+
+  .watch-back {
+    width: 290px;
+    height: 90px;
+  }
+
+  .watch-surface {
+    width: 180px;
+    height: 57px;
+  }
+
+  .watch-side-button {
+    right: -14px;
+    width: 19px;
+  }
+
+  .button-one {
+    right: -14px;
+  }
+
+  .button-two {
+    right: -15px;
+    width: 21px;
+  }
+
+  .button-three {
+    right: -14px;
+  }
+}
+
+
+/* =========================================================
+   360px
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .watch-side-3d {
+    width: 315px;
+  }
+
+  .watch-shell {
+    width: 280px;
+    height: 91px;
+  }
+
+  .watch-back {
+    width: 270px;
+    height: 85px;
+  }
+
+  .watch-surface {
+    width: 165px;
+    height: 53px;
+  }
+
+  .watch-side-button {
+    right: -12px;
+    width: 18px;
+  }
+
+  .button-one {
+    right: -12px;
+  }
+
+  .button-two {
+    right: -13px;
+    width: 20px;
+  }
+
+  .button-three {
+    right: -12px;
+  }
+}

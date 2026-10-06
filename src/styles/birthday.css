@@ -1,0 +1,730 @@
+/* =========================================
+   BIRTHDAY — AESTHETIC CAKE
+========================================= */
+
+.birthday-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  color: #fff7ef;
+  background:
+    radial-gradient(circle at 50% 35%, #3b2935 0%, transparent 38%),
+    linear-gradient(145deg, #120e17 0%, #211620 48%, #100d14 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+  font-family: "Courier New", monospace;
+}
+
+/* soft glowing background */
+
+.birthday-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .5;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.7) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,214,180,.45) 1px, transparent 1px);
+  background-size: 110px 110px, 170px 170px;
+  background-position: 20px 10px, 70px 80px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.birthday-header {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.birthday-label {
+  margin: 0 0 12px;
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: #dcb8a8;
+  opacity: .7;
+}
+
+.birthday-header h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-size: clamp(38px, 7vw, 70px);
+  letter-spacing: 4px;
+  color: #fff3e7;
+  text-shadow:
+    0 2px 20px rgba(255, 207, 176, .2);
+}
+
+.birthday-subtitle {
+  margin-top: 12px;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: #c9aaa1;
+}
+
+/* =========================================
+   INSTRUCTIONS
+========================================= */
+
+.cake-section {
+  position: relative;
+  z-index: 5;
+  width: min(900px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.birthday-instruction {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.birthday-instruction span {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  letter-spacing: 3px;
+  color: #f1d2c1;
+}
+
+.birthday-instruction p {
+  margin: 8px 0;
+  font-size: 11px;
+  line-height: 1.7;
+  color: #bfa8a1;
+}
+
+.birthday-instruction strong {
+  color: #f0c9a9;
+}
+
+/* =========================================
+   COUNTER
+========================================= */
+
+.candle-counter {
+  margin: 10px 0 0;
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.candle-counter span {
+  font-family: Georgia, serif;
+  font-size: 27px;
+  color: #f4cdb5;
+}
+
+.candle-counter small {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #a98d89;
+}
+
+/* =========================================
+   CAKE AREA
+========================================= */
+
+.cake-wrapper {
+  position: relative;
+  width: min(760px, 95vw);
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+/* =========================================
+   CAKE
+========================================= */
+
+.cake {
+  position: relative;
+  width: min(500px, 78vw);
+  height: 225px;
+  margin-bottom: 45px;
+  filter: drop-shadow(0 25px 30px rgba(0,0,0,.35));
+}
+
+/* top */
+
+.cake-top {
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  top: 22px;
+  width: 100%;
+  height: 76px;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      ellipse at 50% 40%,
+      #fffaf5 0%,
+      #f6ddd7 42%,
+      #e7b9bd 100%
+    );
+  border: 2px solid rgba(255,255,255,.45);
+  box-shadow:
+    inset 0 -10px 15px rgba(176,112,124,.12),
+    0 7px 20px rgba(0,0,0,.2);
+}
+
+/* icing */
+
+.cake-icing {
+  position: absolute;
+  left: 4%;
+  bottom: -12px;
+  width: 92%;
+  height: 30px;
+  background: #fff7f1;
+  border-radius: 0 0 50% 50%;
+  box-shadow: 0 4px 10px rgba(154,93,105,.15);
+}
+
+/* little icing drops */
+
+.cake-icing::before,
+.cake-icing::after {
+  content: "";
+  position: absolute;
+  bottom: -13px;
+  width: 17px;
+  height: 25px;
+  border-radius: 0 0 12px 12px;
+  background: #fff7f1;
+}
+
+.cake-icing::before {
+  left: 25%;
+}
+
+.cake-icing::after {
+  right: 27%;
+}
+
+/* middle */
+
+.cake-middle {
+  position: absolute;
+  z-index: 3;
+  top: 65px;
+  left: 0;
+  width: 100%;
+  height: 105px;
+  background:
+    linear-gradient(
+      90deg,
+      #c78391 0%,
+      #e0aeb5 25%,
+      #edc4c7 50%,
+      #dfaab2 75%,
+      #bd7587 100%
+    );
+  border-left: 2px solid #efc9ca;
+  border-right: 2px solid #efc9ca;
+  box-shadow:
+    inset 0 10px 20px rgba(255,255,255,.12),
+    inset 0 -15px 20px rgba(113,55,70,.12);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+/* elegant vertical details */
+
+.cake-middle span {
+  width: 3px;
+  height: 52px;
+  border-radius: 5px;
+  background: rgba(255,240,230,.42);
+}
+
+/* bottom layer */
+
+.cake-bottom {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 155px;
+  width: 100%;
+  height: 70px;
+  border-radius: 0 0 28px 28px;
+  background:
+    linear-gradient(
+      90deg,
+      #8f5368,
+      #b96f82,
+      #d58e9a,
+      #b66b7f,
+      #8b5065
+    );
+  border: 2px solid #c98b99;
+  box-shadow:
+    inset 0 10px 15px rgba(255,255,255,.08);
+}
+
+/* cake plate */
+
+.cake-plate {
+  position: absolute;
+  z-index: -1;
+  left: -8%;
+  bottom: -25px;
+  width: 116%;
+  height: 34px;
+  border-radius: 50%;
+  background:
+    linear-gradient(
+      180deg,
+      #fff8f0,
+      #d8c9c2
+    );
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.35);
+}
+
+/* =========================================
+   CANDLES
+========================================= */
+
+.candles {
+  position: absolute;
+  z-index: 10;
+  left: 5%;
+  bottom: 195px;
+  width: 90%;
+  height: 180px;
+
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  align-items: end;
+  justify-items: center;
+  gap: 3px;
+}
+
+/* candle button */
+
+.candle {
+  position: relative;
+  width: 31px;
+  height: 115px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform .25s ease;
+}
+
+.candle:hover {
+  transform: translateY(-5px);
+}
+
+/* candle body */
+
+.candle-stick {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+
+  width: 17px;
+  height: 70px;
+
+  border-radius: 9px 9px 5px 5px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #d59c91 0%,
+      #f3c7bd 35%,
+      #fff0e7 50%,
+      #e8b5ae 75%,
+      #bd817e 100%
+    );
+
+  box-shadow:
+    inset 1px 0 rgba(255,255,255,.65),
+    inset -2px 0 rgba(130,70,70,.18),
+    0 5px 10px rgba(0,0,0,.2);
+}
+
+/* subtle candle rings */
+
+.candle-stick::before,
+.candle-stick::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(255,255,255,.35);
+}
+
+.candle-stick::before {
+  top: 17px;
+}
+
+.candle-stick::after {
+  top: 42px;
+}
+
+/* number */
+
+.candle-number {
+  display: none;
+}
+
+/* =========================================
+   FLAME
+========================================= */
+
+.flame {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 17px;
+
+  width: 15px;
+  height: 25px;
+
+  transform: translateX(-50%) rotate(45deg);
+
+  border-radius: 70% 30% 70% 30%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fffdf1,
+      #ffd58c 50%,
+      #e99a67
+    );
+
+  box-shadow:
+    0 0 8px #ffdca8,
+    0 0 20px rgba(255,191,118,.7),
+    0 0 35px rgba(255,171,105,.25);
+
+  animation: elegantFlame 1.1s ease-in-out infinite alternate;
+}
+
+.flame::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 11px;
+  left: 4px;
+  top: 9px;
+  border-radius: 50%;
+  background: #fffdf2;
+}
+
+@keyframes elegantFlame {
+  from {
+    transform:
+      translateX(-50%)
+      rotate(40deg)
+      scale(.92);
+  }
+
+  to {
+    transform:
+      translateX(-50%)
+      rotate(50deg)
+      scale(1.08);
+  }
+}
+
+/* =========================================
+   BLOWN CANDLE
+========================================= */
+
+.candle.blown {
+  opacity: .55;
+}
+
+.candle.blown .candle-stick {
+  background:
+    linear-gradient(
+      90deg,
+      #8b7773,
+      #b9a6a0,
+      #d0c0bb,
+      #89736f
+    );
+}
+
+.candle.blown::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 12px;
+
+  width: 5px;
+  height: 25px;
+
+  background: rgba(220,220,220,.4);
+  border-radius: 50%;
+  filter: blur(3px);
+
+  animation: smoke 1.5s ease-out forwards;
+}
+
+@keyframes smoke {
+  0% {
+    opacity: .7;
+    transform: translate(-50%, 0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -45px) scale(2);
+  }
+}
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+.birthday-progress {
+  margin-top: -10px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #ad9693;
+}
+
+/* =========================================
+   CELEBRATION
+========================================= */
+
+.celebration {
+  position: relative;
+  z-index: 10;
+  width: min(680px, 100%);
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+}
+
+.celebration-card {
+  width: 100%;
+  padding: 55px 35px;
+  text-align: center;
+
+  border: 1px solid rgba(240,205,190,.3);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(52,35,43,.9),
+      rgba(25,19,27,.9)
+    );
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.45),
+    inset 0 0 40px rgba(255,220,200,.025);
+
+  backdrop-filter: blur(12px);
+}
+
+.celebration-small {
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: #c5aaa2;
+}
+
+.celebration-card h2 {
+  margin: 24px 0;
+  font-family: Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(30px, 5vw, 50px);
+  line-height: 1.2;
+  color: #f8ded0;
+}
+
+.celebration-card p {
+  max-width: 470px;
+  margin: 15px auto;
+  font-size: 13px;
+  line-height: 1.9;
+  color: #c7b2ad;
+}
+
+.celebration-heart {
+  margin: 25px 0;
+  font-size: 50px;
+  color: #e8a8a8;
+  animation: heartBeat 1.4s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+.celebration-love {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 17px !important;
+  color: #e8c8bc !important;
+}
+
+.birthday-continue {
+  margin-top: 25px;
+  padding: 14px 25px;
+
+  border: 1px solid #d6afa1;
+  background: transparent;
+
+  color: #e8c9bc;
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+
+  cursor: pointer;
+  transition: all .3s ease;
+}
+
+.birthday-continue:hover {
+  background: #e5c0b0;
+  color: #24171c;
+  box-shadow: 0 0 30px rgba(230,190,170,.25);
+}
+
+/* =========================================
+   FLOATING SYMBOLS
+========================================= */
+
+.celebration-burst {
+  position: absolute;
+  inset: -30px;
+  pointer-events: none;
+}
+
+.celebration-burst span {
+  position: absolute;
+  font-size: 22px;
+  color: #e6c0aa;
+  opacity: .65;
+  animation: floating 3.5s ease-in-out infinite;
+}
+
+.celebration-burst span:nth-child(1) {
+  left: 5%;
+  top: 10%;
+}
+
+.celebration-burst span:nth-child(2) {
+  right: 6%;
+  top: 18%;
+}
+
+.celebration-burst span:nth-child(3) {
+  left: 10%;
+  bottom: 15%;
+}
+
+.celebration-burst span:nth-child(4) {
+  right: 10%;
+  bottom: 10%;
+}
+
+.celebration-burst span:nth-child(5) {
+  left: 50%;
+  top: -8%;
+}
+
+.celebration-burst span:nth-child(6) {
+  right: 40%;
+  bottom: -10%;
+}
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0) rotate(0);
+  }
+
+  50% {
+    transform: translateY(-14px) rotate(8deg);
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+  .birthday-page {
+    padding: 35px 12px;
+  }
+
+  .birthday-header h1 {
+    font-size: 38px;
+    letter-spacing: 2px;
+  }
+
+  .birthday-wrapper {
+    width: 100%;
+  }
+
+  .cake-wrapper {
+    height: 370px;
+  }
+
+  .cake {
+    width: 84vw;
+    height: 185px;
+  }
+
+  .candles {
+    bottom: 160px;
+    width: 96%;
+    left: 2%;
+    height: 160px;
+    gap: 0;
+  }
+
+  .candle {
+    width: 23px;
+    height: 95px;
+  }
+
+  .candle-stick {
+    width: 13px;
+    height: 58px;
+  }
+
+  .flame {
+    width: 12px;
+    height: 20px;
+  }
+
+  .cake-middle {
+    height: 90px;
+  }
+
+  .cake-bottom {
+    top: 145px;
+    height: 65px;
+  }
+
+  .cake-top {
+    height: 62px;
+  }
+
+  .celebration-card {
+    padding: 40px 20px;
+  }
+}

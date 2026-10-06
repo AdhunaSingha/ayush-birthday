@@ -1,0 +1,596 @@
+/* =========================================
+   FINAL — CINEMATIC ENDING
+========================================= */
+
+.final-page {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(116, 63, 79, .28),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(76, 43, 58, .25),
+      transparent 40%
+    ),
+    #0d0910;
+
+  color: #f8eee9;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 70px 20px;
+
+  font-family: "Courier New", monospace;
+}
+
+/* =========================================
+   BACKGROUND
+========================================= */
+
+.final-glow {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+
+  left: 50%;
+  top: 45%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(220, 151, 157, .13),
+      rgba(220, 151, 157, .03) 45%,
+      transparent 70%
+    );
+
+  filter: blur(10px);
+
+  pointer-events: none;
+}
+
+.final-stars {
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: .5;
+
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.7) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle,
+      rgba(255,210,190,.45) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    120px 120px,
+    180px 180px;
+
+  background-position:
+    20px 10px,
+    70px 90px;
+
+  animation: starDrift 25s linear infinite;
+}
+
+@keyframes starDrift {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-120px);
+  }
+}
+
+/* =========================================
+   FLOATING HEARTS
+========================================= */
+
+.final-floating-hearts {
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+.final-floating-hearts span {
+  position: absolute;
+
+  color: #d69ba2;
+
+  opacity: .25;
+
+  font-family: Georgia, serif;
+
+  animation:
+    floatHeart 7s ease-in-out infinite;
+}
+
+.final-floating-hearts span:nth-child(1) {
+  left: 12%;
+  top: 25%;
+  font-size: 22px;
+}
+
+.final-floating-hearts span:nth-child(2) {
+  right: 15%;
+  top: 18%;
+  font-size: 14px;
+  animation-delay: 1s;
+}
+
+.final-floating-hearts span:nth-child(3) {
+  left: 20%;
+  bottom: 18%;
+  font-size: 17px;
+  animation-delay: 2s;
+}
+
+.final-floating-hearts span:nth-child(4) {
+  right: 12%;
+  bottom: 25%;
+  font-size: 15px;
+  animation-delay: 3s;
+}
+
+.final-floating-hearts span:nth-child(5) {
+  left: 8%;
+  top: 55%;
+  font-size: 12px;
+  animation-delay: 4s;
+}
+
+.final-floating-hearts span:nth-child(6) {
+  right: 7%;
+  top: 60%;
+  font-size: 19px;
+  animation-delay: 5s;
+}
+
+@keyframes floatHeart {
+  0%,
+  100% {
+    transform:
+      translateY(0)
+      rotate(0deg);
+
+    opacity: .2;
+  }
+
+  50% {
+    transform:
+      translateY(-20px)
+      rotate(8deg);
+
+    opacity: .5;
+  }
+}
+
+/* =========================================
+   INTRO
+========================================= */
+
+.final-intro {
+  position: relative;
+  z-index: 5;
+
+  text-align: center;
+
+  max-width: 700px;
+
+  animation: fadeIn 1.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.final-eyebrow {
+  margin-bottom: 30px;
+
+  font-size: 9px;
+
+  letter-spacing: 5px;
+
+  color: #bda3a0;
+
+  opacity: .7;
+}
+
+.final-heart {
+  width: 105px;
+  height: 105px;
+
+  margin: 0 auto 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-size: 45px;
+
+  color: #e6aeb2;
+
+  border: 1px solid rgba(231,177,180,.3);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(213,140,151,.18),
+      transparent 65%
+    );
+
+  box-shadow:
+    0 0 40px rgba(218,143,155,.12);
+
+  animation:
+    finalHeartPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes finalHeartPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+.final-intro h1 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-weight: 400;
+
+  font-size: clamp(48px, 9vw, 92px);
+
+  line-height: .95;
+
+  letter-spacing: 5px;
+
+  color: #f8e8df;
+
+  text-shadow:
+    0 0 30px rgba(238,184,177,.12);
+}
+
+.final-line {
+  width: 70px;
+  height: 1px;
+
+  margin: 35px auto 25px;
+
+  background: #c99d94;
+
+  opacity: .5;
+}
+
+.final-subtitle {
+  color: #bba5a0;
+
+  font-family: Georgia, serif;
+
+  font-style: italic;
+
+  font-size: 16px;
+}
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.final-reveal-button {
+  margin-top: 40px;
+
+  padding: 15px 30px;
+
+  border: 1px solid rgba(222,178,166,.55);
+
+  background: rgba(255,255,255,.015);
+
+  color: #e6c6bb;
+
+  font-family: "Courier New", monospace;
+
+  font-size: 10px;
+
+  letter-spacing: 3px;
+
+  cursor: pointer;
+
+  transition:
+    background .3s ease,
+    color .3s ease,
+    box-shadow .3s ease,
+    transform .3s ease;
+}
+
+.final-reveal-button:hover {
+  background: #e3b9aa;
+
+  color: #201419;
+
+  box-shadow:
+    0 0 30px rgba(224,174,160,.2);
+
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   FINAL MESSAGE
+========================================= */
+
+.final-message {
+  position: relative;
+
+  z-index: 5;
+
+  width: min(720px, 100%);
+
+  text-align: center;
+
+  padding: 30px 0;
+
+  animation:
+    messageAppear 1.5s ease forwards;
+}
+
+@keyframes messageAppear {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.final-letter-label {
+  margin-bottom: 20px;
+
+  font-size: 9px;
+
+  letter-spacing: 5px;
+
+  color: #b89b97;
+}
+
+.final-big-heart {
+  font-family: Georgia, serif;
+
+  font-size: 50px;
+
+  color: #df9fa5;
+
+  margin-bottom: 20px;
+
+  text-shadow:
+    0 0 30px rgba(220,135,145,.2);
+}
+
+.final-message h1 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(45px, 8vw, 78px);
+
+  font-weight: 400;
+
+  line-height: .95;
+
+  letter-spacing: 3px;
+
+  color: #f7e8df;
+}
+
+/* =========================================
+   DIVIDER
+========================================= */
+
+.final-divider {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 18px;
+
+  margin: 35px 0;
+
+  color: #c99794;
+
+  opacity: .7;
+
+  font-size: 13px;
+}
+
+/* =========================================
+   LETTER
+========================================= */
+
+.final-letter {
+  width: min(580px, 100%);
+
+  margin: 0 auto;
+
+  padding: 35px 25px;
+
+  border-top: 1px solid rgba(220,183,170,.15);
+
+  border-bottom: 1px solid rgba(220,183,170,.15);
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  color: #cbb7b1;
+
+  font-size: 15px;
+
+  line-height: 1.95;
+}
+
+.final-letter p {
+  margin: 0 0 25px;
+}
+
+.final-letter p:last-child {
+  margin-bottom: 0;
+}
+
+.final-special {
+  color: #e6c2b8;
+
+  font-size: 18px;
+
+  font-style: italic;
+}
+
+.final-love {
+  margin-top: 35px !important;
+
+  color: #edc8bd;
+
+  font-size: 22px;
+
+  font-style: italic;
+}
+
+.final-signature {
+  margin-top: 35px !important;
+
+  color: #cda49d;
+
+  font-style: italic;
+
+  font-size: 16px;
+}
+
+.final-signature span {
+  display: inline-block;
+
+  margin-top: 8px;
+
+  color: #dd9da4;
+
+  font-size: 25px;
+}
+
+/* =========================================
+   END
+========================================= */
+
+.final-ending {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-top: 50px;
+
+  color: #7f6968;
+
+  font-size: 9px;
+
+  letter-spacing: 3px;
+}
+
+.final-ending small {
+  font-size: 7px;
+
+  letter-spacing: 4px;
+
+  opacity: .5;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .final-page {
+    padding: 50px 20px;
+    align-items: flex-start;
+  }
+
+  .final-intro {
+    width: 100%;
+    margin-top: 18vh;
+  }
+
+  .final-heart {
+    width: 85px;
+    height: 85px;
+    font-size: 36px;
+  }
+
+  .final-intro h1 {
+    font-size: 48px;
+    letter-spacing: 2px;
+  }
+
+  .final-subtitle {
+    font-size: 14px;
+  }
+
+  .final-message {
+    width: 100%;
+  }
+
+  .final-message h1 {
+    font-size: 47px;
+  }
+
+  .final-letter {
+    padding: 30px 10px;
+
+    font-size: 14px;
+
+    line-height: 1.85;
+  }
+
+  .final-letter p {
+    margin-bottom: 22px;
+  }
+
+  .final-love {
+    font-size: 20px;
+  }
+}

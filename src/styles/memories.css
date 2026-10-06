@@ -1,0 +1,929 @@
+/* =========================================================
+   MEMORY ROOM
+========================================================= */
+
+.memories-page {
+  min-height: 100vh;
+
+  position: relative;
+
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 35%,
+      rgba(100,150,130,.10),
+      transparent 45%
+    ),
+    linear-gradient(
+      180deg,
+      #07100c,
+      #020604 75%
+    );
+
+  color: #e6eee6;
+
+  font-family:
+    "Courier New",
+    monospace;
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.memory-stars {
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(220,255,230,.5) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    90px 90px;
+
+  opacity: .18;
+}
+
+.memory-grid {
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(150,220,170,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(150,220,170,.025) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    40px 40px;
+
+  transform:
+    perspective(700px)
+    rotateX(55deg)
+    scale(1.5);
+
+  transform-origin:
+    center bottom;
+}
+
+.memory-vignette {
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 45%,
+      rgba(0,0,0,.75)
+    );
+
+  z-index: 100;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.memory-header {
+  position: relative;
+
+  z-index: 10;
+
+  width: min(1100px, 92%);
+
+  margin: auto;
+
+  padding: 13px 0;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  border-bottom:
+    1px solid
+    rgba(180,220,190,.15);
+}
+
+.memory-system strong {
+  display: block;
+
+  font-size: 9px;
+
+  letter-spacing: 3px;
+
+  color: #b7cdb9;
+}
+
+.memory-system span {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 6px;
+
+  letter-spacing: 2px;
+
+  color:
+    rgba(215,235,220,.35);
+}
+
+.memory-header-title {
+  color: #c4d9c5;
+
+  font-size: 10px;
+
+  letter-spacing: 5px;
+
+  text-shadow:
+    0 0 12px
+    rgba(180,230,190,.35);
+}
+
+.memory-status {
+  font-size: 7px;
+
+  letter-spacing: 2px;
+
+  color:
+    rgba(215,235,220,.4);
+}
+
+.memory-status i {
+  display: inline-block;
+
+  width: 5px;
+  height: 5px;
+
+  margin-right: 6px;
+
+  border-radius: 50%;
+
+  background: #a8cda9;
+
+  box-shadow:
+    0 0 8px
+    #a8cda9;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.memories-main {
+  position: relative;
+
+  z-index: 5;
+
+  width: min(1000px, 94%);
+
+  margin: auto;
+
+  text-align: center;
+
+  padding-bottom: 45px;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.memory-intro {
+  padding-top: 22px;
+}
+
+.memory-intro > span {
+  font-size: 7px;
+
+  letter-spacing: 4px;
+
+  color:
+    rgba(215,235,220,.35);
+}
+
+.memory-intro h1 {
+  margin:
+    7px 0 3px;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size:
+    clamp(30px, 4vw, 44px);
+
+  letter-spacing: 4px;
+
+  color:
+    #dce7dc;
+
+  text-shadow:
+    0 0 20px
+    rgba(190,230,195,.18);
+}
+
+.memory-intro p {
+  margin: 0;
+
+  font-size: 8px;
+
+  letter-spacing: 2px;
+
+  color:
+    rgba(215,235,220,.38);
+}
+
+
+/* =========================================================
+   VIEWER
+========================================================= */
+
+.memory-viewer {
+  position: relative;
+
+  min-height: 425px;
+
+  margin-top: 22px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+
+/* =========================================================
+   FRAME
+========================================================= */
+
+.memory-frame {
+  width: 490px;
+
+  padding: 11px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #18201a,
+      #080d09
+    );
+
+  border:
+    1px solid
+    rgba(190,220,190,.3);
+
+  box-shadow:
+    0 25px 70px
+    rgba(0,0,0,.75),
+
+    inset 0 0 30px
+    rgba(190,220,190,.04);
+
+  transform:
+    rotate(-1deg);
+
+  transition:
+    .45s;
+}
+
+.memory-frame:hover,
+.memory-open {
+  transform:
+    rotate(0)
+    scale(1.015);
+
+  border-color:
+    rgba(210,235,210,.5);
+
+  box-shadow:
+    0 30px 80px
+    rgba(0,0,0,.8),
+
+    0 0 35px
+    rgba(180,220,185,.08);
+}
+
+
+/* =========================================================
+   TOP
+========================================================= */
+
+.memory-frame-top {
+  display: flex;
+
+  justify-content: space-between;
+
+  padding:
+    3px 4px 9px;
+
+  font-size: 6px;
+
+  letter-spacing: 2px;
+
+  color:
+    rgba(215,235,220,.35);
+}
+
+.memory-frame-top strong {
+  color:
+    #aebfae;
+}
+
+
+/* =========================================================
+   PHOTO
+========================================================= */
+
+.memory-photo-wrap {
+  position: relative;
+
+  width: 100%;
+
+  aspect-ratio:
+    4 / 3;
+
+  overflow: hidden;
+
+  background: #050706;
+}
+
+.memory-photo {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  filter:
+    saturate(.9)
+    contrast(1.03);
+
+  transition:
+    transform .8s ease,
+    filter .5s ease;
+}
+
+.memory-frame:hover .memory-photo {
+  transform: scale(1.025);
+
+  filter:
+    saturate(1)
+    contrast(1.05);
+}
+
+
+/* =========================================================
+   PHOTO CORNERS
+========================================================= */
+
+.photo-corner {
+  position: absolute;
+
+  width: 24px;
+  height: 24px;
+
+  z-index: 5;
+
+  border-color:
+    rgba(225,245,225,.8);
+}
+
+.photo-corner-tl {
+  left: 8px;
+  top: 8px;
+
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.photo-corner-tr {
+  right: 8px;
+  top: 8px;
+
+  border-top: 1px solid;
+  border-right: 1px solid;
+}
+
+.photo-corner-bl {
+  left: 8px;
+  bottom: 8px;
+
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+
+.photo-corner-br {
+  right: 8px;
+  bottom: 8px;
+
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
+
+
+/* =========================================================
+   PHOTO SCANLINE
+========================================================= */
+
+.photo-scanline {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  top: -5px;
+
+  height: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(230,255,235,.6),
+      transparent
+    );
+
+  box-shadow:
+    0 0 10px
+    rgba(220,255,225,.4);
+
+  opacity: .35;
+
+  animation:
+    memoryScan 5s linear infinite;
+}
+
+@keyframes memoryScan {
+
+  0% {
+    top: -5px;
+  }
+
+  100% {
+    top: 100%;
+  }
+}
+
+
+/* =========================================================
+   PHOTO OVERLAY
+========================================================= */
+
+.photo-overlay {
+  position: absolute;
+
+  right: 12px;
+  bottom: 10px;
+
+  padding: 5px 7px;
+
+  background:
+    rgba(0,0,0,.55);
+
+  border:
+    1px solid
+    rgba(220,245,220,.25);
+
+  font-size: 5px;
+
+  line-height: 1.6;
+
+  letter-spacing: 2px;
+
+  text-align: right;
+
+  color:
+    rgba(235,250,235,.65);
+}
+
+
+/* =========================================================
+   BOTTOM
+========================================================= */
+
+.memory-frame-bottom {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  padding-top: 9px;
+}
+
+.memory-frame-bottom div {
+  text-align: left;
+}
+
+.memory-frame-bottom div:nth-child(2) {
+  text-align: center;
+}
+
+.memory-frame-bottom div:nth-child(3) {
+  text-align: right;
+}
+
+.memory-frame-bottom span {
+  display: block;
+
+  font-size: 5px;
+
+  letter-spacing: 2px;
+
+  color:
+    rgba(215,235,220,.3);
+}
+
+.memory-frame-bottom strong {
+  display: block;
+
+  margin-top: 2px;
+
+  font-size: 7px;
+
+  color:
+    #b8cbb9;
+}
+
+
+/* =========================================================
+   ARROWS
+========================================================= */
+
+.memory-arrow {
+  width: 48px;
+  height: 48px;
+
+  border:
+    1px solid
+    rgba(170,210,175,.3);
+
+  border-radius: 50%;
+
+  background:
+    rgba(5,10,7,.8);
+
+  color:
+    #b9d1bb;
+
+  font-family: inherit;
+
+  font-size: 30px;
+
+  cursor: pointer;
+
+  transition:
+    .25s;
+
+  z-index: 10;
+}
+
+.memory-arrow:hover {
+  color: #effff0;
+
+  border-color:
+    rgba(210,235,210,.65);
+
+  box-shadow:
+    0 0 20px
+    rgba(180,220,185,.15);
+
+  transform: scale(1.08);
+}
+
+.memory-arrow-left {
+  margin-right: 40px;
+}
+
+.memory-arrow-right {
+  margin-left: 40px;
+}
+
+
+/* =========================================================
+   CAPTION
+========================================================= */
+
+.memory-caption {
+  width: min(650px, 90%);
+
+  margin:
+    0 auto;
+
+  padding: 8px 0;
+
+  transition:
+    .4s;
+}
+
+.memory-caption > span {
+  font-size: 6px;
+
+  letter-spacing: 4px;
+
+  color:
+    rgba(215,235,220,.32);
+}
+
+.memory-caption h2 {
+  margin:
+    5px 0;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size: 21px;
+
+  letter-spacing: 3px;
+
+  color:
+    #d7e4d7;
+}
+
+.memory-caption p {
+  margin: 0;
+
+  font-size: 8px;
+
+  line-height: 1.7;
+
+  color:
+    rgba(220,235,220,.5);
+}
+
+.caption-open {
+  transform:
+    translateY(-2px);
+}
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.memory-timeline {
+  width: min(600px, 90%);
+
+  margin:
+    16px auto 10px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 9px;
+}
+
+.timeline-dot {
+  width: 27px;
+  height: 7px;
+
+  padding: 0;
+
+  border: 0;
+
+  background:
+    rgba(170,210,175,.15);
+
+  cursor: pointer;
+
+  transition:
+    .25s;
+}
+
+.timeline-dot span {
+  display: block;
+
+  width: 4px;
+  height: 4px;
+
+  margin: auto;
+
+  border-radius: 50%;
+
+  background:
+    rgba(210,235,210,.4);
+}
+
+.timeline-dot:hover,
+.timeline-dot.active {
+  background:
+    rgba(190,225,195,.3);
+}
+
+.timeline-dot.active span {
+  width: 7px;
+  height: 7px;
+
+  background:
+    #c8dfca;
+
+  box-shadow:
+    0 0 10px
+    #c8dfca;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.open-memory-button,
+.continue-memory-button {
+  padding:
+    11px 20px;
+
+  border:
+    1px solid
+    rgba(185,215,185,.35);
+
+  background:
+    rgba(5,10,7,.85);
+
+  color:
+    #c6dac7;
+
+  font-family: inherit;
+
+  font-size: 7px;
+
+  letter-spacing: 2px;
+
+  cursor: pointer;
+
+  transition:
+    .25s;
+}
+
+.open-memory-button:hover,
+.continue-memory-button:hover {
+  background:
+    #c2d8c3;
+
+  color:
+    #071008;
+
+  box-shadow:
+    0 0 25px
+    rgba(190,220,195,.2);
+}
+
+.open-memory-button b,
+.continue-memory-button b {
+  margin-left: 14px;
+
+  font-size: 12px;
+}
+
+.continue-memory-button {
+  display: block;
+
+  margin:
+    10px auto 0;
+
+  border-color:
+    rgba(210,230,210,.5);
+}
+
+
+/* =========================================================
+   CORNERS
+========================================================= */
+
+.memory-corner {
+  position: fixed;
+
+  bottom: 12px;
+
+  z-index: 10;
+
+  font-size: 6px;
+
+  line-height: 1.8;
+
+  color:
+    rgba(215,235,220,.2);
+}
+
+.memory-corner-left {
+  left: 18px;
+}
+
+.memory-corner-right {
+  right: 18px;
+
+  text-align: right;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .memory-header-title {
+    font-size: 8px;
+
+    letter-spacing: 3px;
+  }
+
+  .memory-status {
+    display: none;
+  }
+
+  .memory-viewer {
+    min-height: 350px;
+  }
+
+  .memory-frame {
+    width: calc(100vw - 105px);
+
+    max-width: 390px;
+  }
+
+  .memory-arrow {
+    width: 38px;
+    height: 38px;
+
+    font-size: 25px;
+  }
+
+  .memory-arrow-left {
+    margin-right: 8px;
+  }
+
+  .memory-arrow-right {
+    margin-left: 8px;
+  }
+
+  .memory-timeline {
+    gap: 3px;
+  }
+
+  .timeline-dot {
+    width: 17px;
+  }
+
+  .memory-corner {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   LAPTOP HEIGHT
+========================================================= */
+
+@media (min-width: 701px) and (max-height: 800px) {
+
+  .memory-intro {
+    padding-top: 12px;
+  }
+
+  .memory-viewer {
+    min-height: 340px;
+
+    margin-top: 12px;
+  }
+
+  .memory-frame {
+    width: 410px;
+  }
+
+  .memory-caption h2 {
+    font-size: 18px;
+  }
+
+  .memory-timeline {
+    margin-top: 10px;
+  }
+}

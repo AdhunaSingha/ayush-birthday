@@ -1,0 +1,445 @@
+/* =========================================
+   AYUSH BIRTHDAY - HOME SCREEN
+   Retro Console / CRT Aesthetic
+========================================= */
+
+.home-page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(circle at 50% 45%, #211b3d 0%, #100e20 45%, #05050b 100%);
+
+  color: #ffffff;
+}
+
+/* CRT scanlines */
+
+.home-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.035) 0px,
+    rgba(255, 255, 255, 0.035) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* CRT vignette */
+
+.home-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 45%,
+      rgba(0, 0, 0, 0.75) 100%
+    );
+
+  pointer-events: none;
+  z-index: 11;
+}
+
+
+/* =========================================
+   STAR FIELD
+========================================= */
+
+.home-stars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.home-stars::before,
+.home-stars::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    radial-gradient(circle, #ffffff 1px, transparent 1px),
+    radial-gradient(circle, #aaa6d8 1px, transparent 1px);
+
+  background-size:
+    80px 80px,
+    130px 130px;
+
+  background-position:
+    10px 20px,
+    50px 70px;
+
+  opacity: 0.3;
+
+  animation: starMove 18s linear infinite;
+}
+
+.home-stars::after {
+  background-size:
+    150px 150px,
+    100px 100px;
+
+  opacity: 0.15;
+
+  animation-duration: 28s;
+  animation-direction: reverse;
+}
+
+@keyframes starMove {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(80px);
+  }
+}
+
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.home-content {
+  position: relative;
+  z-index: 5;
+
+  width: min(900px, 90%);
+
+  text-align: center;
+
+  padding: 50px 25px;
+}
+
+
+/* =========================================
+   SMALL ACCESS TEXT
+========================================= */
+
+.home-access {
+  margin: 0 0 18px;
+
+  color: #8cffc1;
+
+  font-size: clamp(10px, 1.5vw, 15px);
+
+  letter-spacing: 4px;
+
+  animation: terminalBlink 2s infinite;
+}
+
+@keyframes terminalBlink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  50%,
+  55% {
+    opacity: 0.35;
+  }
+
+  60%,
+  100% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================
+   AYUSH TITLE
+========================================= */
+
+.home-content h1 {
+  margin: 0;
+
+  font-size: clamp(60px, 12vw, 150px);
+
+  line-height: 0.9;
+
+  letter-spacing: 8px;
+
+  color: #ffffff;
+
+  text-shadow:
+    4px 4px 0 #6b4fa3,
+    8px 8px 0 rgba(0, 0, 0, 0.6);
+
+  animation: titleFloat 4s ease-in-out infinite;
+}
+
+@keyframes titleFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+
+/* =========================================
+   LEVEL
+========================================= */
+
+.home-level {
+  margin-top: 18px;
+
+  display: inline-block;
+
+  padding: 8px 18px;
+
+  border: 2px solid #ffffff;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  font-size: clamp(18px, 3vw, 30px);
+
+  letter-spacing: 5px;
+
+  box-shadow:
+    4px 4px 0 #6b4fa3,
+    0 0 20px rgba(143, 111, 210, 0.25);
+}
+
+
+/* =========================================
+   DATE
+========================================= */
+
+.home-date {
+  margin: 20px 0 12px;
+
+  color: #bdb7df;
+
+  font-size: clamp(13px, 2vw, 18px);
+
+  letter-spacing: 5px;
+}
+
+
+/* =========================================
+   BIRTHDAY MESSAGE
+========================================= */
+
+.home-content h2 {
+  margin: 0;
+
+  font-size: clamp(16px, 2.5vw, 25px);
+
+  letter-spacing: 2px;
+
+  color: #ffd98a;
+
+  text-shadow:
+    0 0 10px rgba(255, 217, 138, 0.25);
+}
+
+.home-content h2 span {
+  display: inline-block;
+
+  animation: heartBeat 1.2s infinite;
+}
+
+@keyframes heartBeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  20% {
+    transform: scale(1.25);
+  }
+
+  35% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+
+/* =========================================
+   INTRO
+========================================= */
+
+.home-intro {
+  margin: 35px auto 0;
+
+  color: #aaa5c7;
+
+  font-family: "Courier New", monospace;
+
+  font-size: 14px;
+
+  line-height: 1.8;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================================
+   ENTER BUTTON AREA
+========================================= */
+
+.home-start {
+  margin-top: 38px;
+}
+
+
+/* =========================================
+   FLOW BUTTON
+========================================= */
+
+.flow-button {
+  position: relative;
+
+  border: 3px solid #ffffff;
+
+  background: #19142e;
+
+  color: #ffffff;
+
+  padding: 16px 28px;
+
+  min-width: 230px;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  letter-spacing: 2px;
+
+  cursor: pointer;
+
+  box-shadow:
+    5px 5px 0 #6b4fa3,
+    0 0 20px rgba(123, 91, 190, 0.25);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.flow-button:hover {
+  background: #29204a;
+
+  transform: translate(-3px, -3px);
+
+  box-shadow:
+    8px 8px 0 #8c68c9,
+    0 0 30px rgba(140, 104, 201, 0.35);
+}
+
+.flow-button:active {
+  transform: translate(3px, 3px);
+
+  box-shadow:
+    2px 2px 0 #6b4fa3;
+}
+
+
+/* =========================================
+   BOTTOM HINT
+========================================= */
+
+.home-hint {
+  margin-top: 25px;
+
+  color: #77728f;
+
+  font-size: 10px;
+
+  letter-spacing: 3px;
+
+  animation: hintBlink 2.5s infinite;
+}
+
+@keyframes hintBlink {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================
+   RESPONSIVE MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .home-content {
+    width: 92%;
+
+    padding: 30px 15px;
+  }
+
+  .home-content h1 {
+    font-size: clamp(55px, 18vw, 95px);
+
+    letter-spacing: 4px;
+
+    text-shadow:
+      3px 3px 0 #6b4fa3,
+      6px 6px 0 rgba(0, 0, 0, 0.6);
+  }
+
+  .home-access {
+    letter-spacing: 2px;
+  }
+
+  .home-level {
+    font-size: 18px;
+
+    letter-spacing: 3px;
+  }
+
+  .home-date {
+    letter-spacing: 3px;
+  }
+
+  .home-content h2 {
+    line-height: 1.6;
+  }
+
+  .home-intro {
+    font-size: 12px;
+  }
+
+  .flow-button {
+    width: 90%;
+
+    min-width: 0;
+
+    padding: 15px 18px;
+
+    font-size: 12px;
+  }
+
+}
